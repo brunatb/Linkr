@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default function Forms(props){
     return(
-        <StyledForms>
+        <StyledForms onSubmit={e => e.preventDefault()}>
             {props.children}
         </StyledForms>
     )
