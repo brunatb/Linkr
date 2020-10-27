@@ -36,6 +36,18 @@ const Container = styled.div`
         background: #151515;
         padding: 12% 10%;
     }
+    @media (max-width: 800px){
+        flex-direction:column;
+        section{
+            width:100%;
+        }
+        h1{
+            font-size:76px;
+        }
+        h2{
+            font-size:23px;
+        }
+    }
 `;
 
 const StyledSection = styled.div`
@@ -50,4 +62,10 @@ const StyledSection = styled.div`
         text-decoration: underline;
         cursor: pointer;
     }
+
+    @media (max-width: 800px){
+       width: 100%;
+       height: 100%;
+    }
 `;
+
