@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {useHistory} from   'react-router-dom';
 import axios from 'axios';
 
 import Forms from '../components/Forms';
@@ -6,13 +7,14 @@ import Forms from '../components/Forms';
 export default function Login({setTask}){
     const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-    
+    const history = useHistory();
+
     function verifyInputs(){
         if (email === '' || password === '' )
             alert("Preencha todos os campos");
         else{
             const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_in", {email, password});
-            request.then(() => console.log("ok")).catch(() => alert("Email/Senha incorretos"));
+            request.then(() => history.push('/timeline')).catch(() => alert("Email/Senha incorretos"));
         }
     }
 
