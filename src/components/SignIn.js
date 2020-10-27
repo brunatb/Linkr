@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React,{useState} from 'react';
 
 import Forms from '../components/Forms';
@@ -9,8 +10,12 @@ export default function SignIn({setTask}){
     const [pictureUrl, setPictureUrl] = useState('');
 
     function verifyInputs(){
-        if (email === '' || password === '' || username === '' || pictureUrl === '')
+        if (email === '' || password === '' || username === '' || pictureUrl === ''){
             alert("Preencha todos os campos");
+        }else{
+            const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_up', {email, password, username, pictureUrl});
+            request.then(() => console.log("ok")).catch(() => console.log("erro"));
+        }
     }
     
     return(
