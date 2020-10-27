@@ -14,12 +14,24 @@ export default function App(){
         <Router>
             <Switch>
                 <Route path='/timeline'>
-                    <TimeLine />
+                    <TimeLine  />
                 </Route>
                 <Route path='/'>
-                    <Main />
+                    <Main  />
                 </Route>
             </Switch>
         </Router>
     )
 }
+
+
+// <Router>
+//     <Switch>
+//         <Route path='/timeline'>
+//             <TimeLine />
+//         </Route>
+//         <Route path='/'>
+//             <Main />
+//         </Route>
+//     </Switch>
+// </Router>
