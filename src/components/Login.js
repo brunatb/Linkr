@@ -12,7 +12,7 @@ export default function Login({setTask}){
             alert("Preencha todos os campos");
         else{
             const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_in", {email, password});
-            request.then(() => console.log("ok")).catch(() => console.log("erro"));
+            request.then(() => console.log("ok")).catch(() => alert("Email/Senha incorretos"));
         }
     }
 
