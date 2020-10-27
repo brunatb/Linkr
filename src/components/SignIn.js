@@ -14,7 +14,7 @@ export default function SignIn({setTask}){
             alert("Preencha todos os campos");
         }else{
             const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_up', {email, password, username, pictureUrl});
-            request.then(() => console.log("ok")).catch(() => console.log("erro"));
+            request.then(() => console.log("ok")).catch(() => alert("Email já cadastrado!"));
         }
     }
     
