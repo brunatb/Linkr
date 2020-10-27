@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {useHistory} from   'react-router-dom';
 import React,{useState} from 'react';
 
 import Forms from '../components/Forms';
@@ -8,13 +9,14 @@ export default function SignIn({setTask}){
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [pictureUrl, setPictureUrl] = useState('');
+    const history = useHistory();
 
     function verifyInputs(){
         if (email === '' || password === '' || username === '' || pictureUrl === ''){
             alert("Preencha todos os campos");
         }else{
             const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_up', {email, password, username, pictureUrl});
-            request.then(() => console.log("ok")).catch(() => alert("Email já cadastrado!"));
+            request.then(() => history.push('/timeline')).catch(() => alert("Email já cadastrado!"));
         }
     }
     
