@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
 import Trending from '../components/Trending';
 import SectionTimeline from '../components/SectionTimeline';
+import UserContext from '../contexts/UserContext';
 
 export default function TimeLine(){
+    const {user} = useContext(UserContext);
     return(
         <>
             <Header />
