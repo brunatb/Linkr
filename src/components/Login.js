@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import axios from 'axios';
 
 import Forms from '../components/Forms';
 
@@ -9,6 +10,10 @@ export default function Login({setTask}){
     function verifyInputs(){
         if (email === '' || password === '' )
             alert("Preencha todos os campos");
+        else{
+            const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_in", {email, password});
+            request.then(() => console.log("ok")).catch(() => console.log("erro"));
+        }
     }
 
     return(
