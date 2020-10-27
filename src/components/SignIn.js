@@ -9,17 +9,24 @@ export default function SignIn({setTask}){
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [pictureUrl, setPictureUrl] = useState('');
+    const [enable, setEnable] = useState(false);
     const history = useHistory();
 
     function verifyInputs(){
         if (email === '' || password === '' || username === '' || pictureUrl === ''){
             alert("Preencha todos os campos");
         }else{
+            setEnable(true);
             const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_up', {email, password, username, pictureUrl});
-            request.then(() => history.push('/timeline')).catch(() => alert("Email já cadastrado!"));
+            request.then(props => {
+                history.push('/timeline');
+            }).catch(() => {
+                alert("Email já cadastrado!");
+                setEnable(false);
+            });
         }
     }
-    
+
     return(
         <>
             <Forms>
@@ -35,7 +42,7 @@ export default function SignIn({setTask}){
                 <input  type='url' name="picture" placeholder='picture url' 
                         onChange={e => setPictureUrl(e.target.value)}
                         value={pictureUrl} />
-                <button onClick={verifyInputs}>Sign Up</button>
+                <button onClick={verifyInputs} type='submit' disabled={enable}>Sign Up</button>
             </Forms>
             <p onClick={() => setTask(true)}>Switch back to log in</p>
         </>
