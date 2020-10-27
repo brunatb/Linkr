@@ -27,7 +27,7 @@ export default function Login({setTask}){
                 <input  type="password" name="senha" placeholder='password' 
                         onChange={e => setPassword(e.target.value)}
                         value={password}/>
-                <button onClick={verifyInputs}>Log In</button>
+                <button onClick={verifyInputs} type='submit'>Log In</button>
             </Forms>
             <p onClick={() => setTask(false)}>First time? Create an account</p>
         </>
