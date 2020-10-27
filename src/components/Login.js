@@ -1,13 +1,15 @@
-import React,{useState} from 'react';
+import React,{useState, useContext} from 'react';
 import {useHistory} from   'react-router-dom';
 import axios from 'axios';
 
 import Forms from '../components/Forms';
+import UserContext from '../contexts/UserContext';
 
 export default function Login({setTask}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [enable,setEnable] = useState(false);
+    const {user, setUser} = useContext(UserContext);
     const history = useHistory();
 
     function verifyInputs(){
@@ -16,7 +18,10 @@ export default function Login({setTask}){
         else{
             setEnable(true);
             const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_in", {email, password});
-            request.then(() => console.log("alou")).catch(() => {
+            request.then(props => {
+                history.push('/timeline');
+                setUser(props.data);
+            }).catch(() => {
                 alert("Email/Senha incorretos");
                 setEnable(false);
             });
