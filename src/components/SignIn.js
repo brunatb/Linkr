@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {useHistory} from   'react-router-dom';
-import React,{useState} from 'react';
+import React,{useContext, useState} from 'react';
 
 import Forms from '../components/Forms';
+import UserContext from '../contexts/UserContext';
 
 export default function SignIn({setTask}){
     const [email, setEmail] = useState('');
@@ -10,6 +11,7 @@ export default function SignIn({setTask}){
     const [username, setUsername] = useState('');
     const [pictureUrl, setPictureUrl] = useState('');
     const [enable, setEnable] = useState(false);
+    const {user, setUser} = useContext(UserContext);
     const history = useHistory();
 
     function verifyInputs(){
@@ -20,6 +22,7 @@ export default function SignIn({setTask}){
             const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_up', {email, password, username, pictureUrl});
             request.then(props => {
                 history.push('/timeline');
+                setUser(props.data)
             }).catch(() => {
                 alert("Email já cadastrado!");
                 setEnable(false);
