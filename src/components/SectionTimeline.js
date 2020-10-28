@@ -13,7 +13,7 @@ export default function SectionTimeline() {
     
     useEffect(() => {
         const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=0&limit=10",userToken);
-        request.then(response => setPosts(response.data.posts));
+        request.then(response => setPosts(response.data.posts)).catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
     },[userToken]);
     
     return(
@@ -21,7 +21,7 @@ export default function SectionTimeline() {
             <Publish />            
             {posts.length === 0 ? 
                 (<Load><img src="./images/loading.gif"></img></Load>) : 
-                (posts.map(post => <Posts post={post} />))
+                (posts.map((post,i) => <Posts key={i} post={post} />))
             }            
         </PostsContainer>
     );
