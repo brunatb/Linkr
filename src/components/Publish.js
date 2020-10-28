@@ -18,11 +18,13 @@ export default function Publish() {
             request.then(props => {
                 console.log(props);
                 setEnable(false);
-            }).catch(props => {
-                console.log(props.response.status);
-                setEnable(false);
-            });
+            }).catch(errorCase);
         }
+    }
+
+    function errorCase(){
+        alert("Houve um erro ao publicar seu link!");
+        setEnable(false);
     }
 
     return(
