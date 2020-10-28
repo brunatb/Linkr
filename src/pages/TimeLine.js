@@ -27,7 +27,7 @@ const Container = styled.section`
     height: 100%;
     color: #fff;
     padding: 0 10%;
-    margin-top: 150px;
+    margin: 150px 0;
 
     h2 {
         font-size: 40px;
