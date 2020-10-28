@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Menu(){
+import UserContext from '../contexts/UserContext';
 
+export default function Menu(){
+    const {setUser} = useContext(UserContext);
     return(
         <StyledMenu>
             <ul>
-                <li>My posts</li>
+                <Link to='my-posts'><li>My posts</li></Link>
                 <li>My likes</li>
-                <li>Logout</li>
+                <Link to='/' onClick={() => setUser({})}><li>Logout</li></Link>
             </ul>
         </StyledMenu>
     )
@@ -32,5 +35,6 @@ const StyledMenu = styled.nav`
         text-align: center;
         margin: 0 0 10px;
         cursor: pointer;
+        color: white;
     }
 `;

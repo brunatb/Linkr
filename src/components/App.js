@@ -8,6 +8,7 @@ import {
 import { UserProvider } from '../contexts/UserContext';
 
 import Main from '../pages/Main'
+import MyPosts from '../pages/MyPosts';
 import TimeLine from '../pages/TimeLine';
  
 export default function App(){
@@ -18,6 +19,9 @@ export default function App(){
                 <Switch>
                     <Route path='/timeline'>
                         <TimeLine  />
+                    </Route>
+                    <Route path='/my-posts'>
+                        <MyPosts />
                     </Route>
                     <Route path='/'>
                         <Main  />
