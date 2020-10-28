@@ -1,24 +1,20 @@
 import React, { useContext } from 'react';
-
-
+import styled from 'styled-components';
 import Header from '../components/Header';
-import Trending from '../components/Trending';
-import SectionTimeline from '../components/SectionTimeline';
-import UserContext from '../contexts/UserContext';
 import PagesContainer from '../components/PagesContainer';
+import Trending from '../components/Trending';
 
-export default function TimeLine(){
-    const {user} = useContext(UserContext);
+export default function MyPosts(){
     return(
         <>
             <Header />
             <PagesContainer>
-                <h2>timeline</h2>
+                <h2>my posts</h2>
                 <div>
-                    <SectionTimeline />
                     <Trending />
                 </div>
             </PagesContainer>
         </>
-    );
+    )
 }
+

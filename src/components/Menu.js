@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function Menu(){
@@ -6,7 +7,7 @@ export default function Menu(){
     return(
         <StyledMenu>
             <ul>
-                <li>My posts</li>
+                <Link to='my-posts'><li>My posts</li></Link>
                 <li>My likes</li>
                 <li>Logout</li>
             </ul>
@@ -32,5 +33,6 @@ const StyledMenu = styled.nav`
         text-align: center;
         margin: 0 0 10px;
         cursor: pointer;
+        color: white;
     }
 `;
