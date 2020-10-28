@@ -32,10 +32,12 @@ export default function Publish() {
                 <p>O que você tem para favoritar hoje?</p>
                 <input type="text" name="link" placeholder='http://...' 
                 onChange={e => setLink(e.target.value)}
-                value={link} />
+                value={link}
+                disabled={enable} />
                 <textarea placeholder='Muito irado esse link falando de #javascript'
                 onChange={e => setText(e.target.value)}
-                value={text} />
+                value={text}
+                disabled={enable} />
                 <div className='container-button'><button onClick={verifyLink} disabled={enable}>{!enable ? "Publicar" : "Publicando..."}</button></div>
             </div>
         </Container>
