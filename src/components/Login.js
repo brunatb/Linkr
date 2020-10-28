@@ -19,9 +19,9 @@ export default function Login({setTask}){
             setEnable(true);
             const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_in", {email, password});
             request.then(props => {
-                history.push('/timeline');
                 setUser(props.data);
-                setUserToken({headers: {"user-token": props.data.token}})
+                setUserToken({headers: {"user-token": props.data.token}});
+                history.push('/timeline')
             }).catch(() => {
                 alert("Email/Senha incorretos");
                 setEnable(false);

@@ -21,8 +21,9 @@ export default function SignIn({setTask}){
             setEnable(true);
             const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_up', {email, password, username, pictureUrl});
             request.then(props => {
-                history.push('/timeline');
                 setUser(props.data);
+                setUserToken({headers: {"user-token": props.data.token}});
+                history.push('/timeline')
             }).catch(() => {
                 alert("Email já cadastrado!");
                 setEnable(false);
