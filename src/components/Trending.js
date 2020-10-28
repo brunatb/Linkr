@@ -28,6 +28,7 @@ export default function Trending() {
 
 const Nav = styled.nav`
     width: 40%;
+    height: 430px;
     background: #171717;
     border-radius: 15px;
     font-weight: 700;

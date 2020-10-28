@@ -74,6 +74,7 @@ const A = styled.div`
     border: 1px solid #4D4D4D;
     border-radius: 10px;
     display: flex;
+    width: 100%;
 
     h3 {
         font-size: 15px;

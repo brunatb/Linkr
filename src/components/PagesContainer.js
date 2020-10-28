@@ -15,7 +15,7 @@ const StyledContainer = styled.section`
     height: 100%;
     color: #fff;
     padding: 0 10%;
-    margin-top: 150px;
+    margin: 150px 0px;
 
     h2 {
         font-size: 40px;
@@ -23,7 +23,6 @@ const StyledContainer = styled.section`
 
     & > div {
         display: flex;
-        align-items: center;
         justify-content: space-between;
         margin-top: 40px;
     }
