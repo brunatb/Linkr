@@ -2,25 +2,29 @@ import React from 'react'
 import styled from 'styled-components';
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 
-export default function Posts() {
+export default function Posts(props) {
+    const {avatar,username} = props.post.user;
+    const {text, linkTitle, linkDescription, link, linkImage} = props.post;
+    console.log(props.post);
     return(
         <Container>
             <Profile>
-                <img src='./business+face+people+icon-1320086457520622872.png' />
+                <img src={avatar} />
                 <AiOutlineHeart />
             </Profile>
             <Body>
-                <h3>Monalice</h3>
-                <p>Muito maneiro esse tutorial de Material UI com React, deem uma olhada! #react #material</p>
+                <h3>{username}</h3>
+                <p>{text}</p>
                 <A>
                     <div>
-                        <h3>Como aplicar o Material UI em um projeto React</h3>
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <span>Https://mediium.com....</span>
+                        <h3>{linkTitle}</h3>
+                        <p>{linkDescription}</p>
+                        <span>{link}</span>
                     </div>
                     <div>
-                        <img src='./business+face+people+icon-1320086457520622872.png' />
+                        <img src={linkImage} />
                     </div>
                 </A>
             </Body>
