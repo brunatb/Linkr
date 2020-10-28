@@ -1,15 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 
 export default function Publish() {
+    const [link, setLink] = useState('');
+    const [text, setText] = useState('');
+
+    function verifyLink(){
+        if(!link){
+            alert('Preencha o campo de link!');
+        }
+    }
+
     return(
         <Container>
             <img src='./business+face+people+icon-1320086457520622872.png' />
             <div>
                 <p>O que você tem para favoritar hoje?</p>
-                <input type="text" name="link" placeholder='http://...'/>
-                <textarea placeholder='Muito irado esse link falando de #javascript' />
-                <button>Publicar</button>
+                <input type="text" name="link" placeholder='http://...' 
+                onChange={e => setLink(e.target.value)}
+                value={link} />
+                <textarea placeholder='Muito irado esse link falando de #javascript'
+                onChange={e => setText(e.target.value)}
+                value={text} />
+                <div className='container-button'><button onClick={verifyLink}>Publicar</button></div>
             </div>
         </Container>
     );
@@ -18,7 +31,6 @@ export default function Publish() {
 
 const Container = styled.section`
     display: flex;
-    height: 210px;
     border-radius: 15px;
     background: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -35,7 +47,14 @@ const Container = styled.section`
 
     div { 
         width: 100%;
-        position: relative;
+        padding: 0 0 0 10px;
+    }
+    
+    p{
+        color: #707070;
+        font-size: 20px;
+        line-height: 24px;
+        margin: 15px 0 10px 0;
     }
 
     input, textarea {
@@ -54,13 +73,20 @@ const Container = styled.section`
         height: 70px;
     }
 
+    .container-button{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
     button {
         width: 110px;
         height: 30px;
         background: #1877F2;
         border-radius: 5px;
-        position: absolute;
-        right: 0px;
         color: #fff;
+        cursor: pointer;
     }
+
+    
 `;

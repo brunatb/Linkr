@@ -40,6 +40,7 @@ const Container = styled.section`
 const Profile = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-right: 10px;
     
     img {
