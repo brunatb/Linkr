@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 export default function Posts(props) {
     const {avatar,username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage} = props.post;
-    console.log(props.post);
+    
     return(
         <Container>
             <Profile>

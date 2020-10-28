@@ -18,11 +18,13 @@ export default function Publish() {
             request.then(props => {
                 console.log(props);
                 setEnable(false);
-            }).catch(props => {
-                console.log(props.response.status);
-                setEnable(false);
-            });
+            }).catch(errorCase);
         }
+    }
+
+    function errorCase(){
+        alert("Houve um erro ao publicar seu link!");
+        setEnable(false);
     }
 
     return(
@@ -32,10 +34,12 @@ export default function Publish() {
                 <p>O que você tem para favoritar hoje?</p>
                 <input type="text" name="link" placeholder='http://...' 
                 onChange={e => setLink(e.target.value)}
-                value={link} />
+                value={link}
+                disabled={enable} />
                 <textarea placeholder='Muito irado esse link falando de #javascript'
                 onChange={e => setText(e.target.value)}
-                value={text} />
+                value={text}
+                disabled={enable} />
                 <div className='container-button'><button onClick={verifyLink} disabled={enable}>{!enable ? "Publicar" : "Publicando..."}</button></div>
             </div>
         </Container>
