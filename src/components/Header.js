@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AiOutlineDown } from "react-icons/ai";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import Menu from './Menu';
 
 export default function Header() {
+    const [openMenu, setOpenMenu] = useState(false);
     return (
         <Top>
             <p>linkr</p>
             <Profile>
-                <AiOutlineDown />
+                {!openMenu ? <AiOutlineDown className='icon' onClick={() => setOpenMenu(true)} /> : <AiOutlineUp className='icon' onClick={() => setOpenMenu(false)} />}
                 <img src='./business+face+people+icon-1320086457520622872.png' />
+                {!openMenu ? "" : <Menu />}
             </Profile>
         </Top>
     );
@@ -24,11 +27,11 @@ const Top = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: black;
+    background-color: #151515;
     color: #fff;
     font-family: 'Passion One';
 
-    p {
+    & > p{
         font-size: 50px;
         font-weight: 700;
     }
@@ -41,10 +44,14 @@ const Profile = styled.div`
     align-items: center;
     justify-content: space-between;
     font-size: 20px;
-
+    position: relative;
 
     img {
         width: 60px;
         border-radius: 50%;
+    }
+
+    .icon{
+        cursor: pointer;
     }
 `;
