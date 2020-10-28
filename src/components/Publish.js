@@ -7,13 +7,21 @@ export default function Publish() {
     const [link, setLink] = useState('');
     const [text, setText] = useState('');
     const  { userToken } = useContext(UserContext);
+    const [enable, setEnable] = useState(false);
 
     function verifyLink(){
         if(!link){
             alert('Preencha o campo de link!');
         }else{
+            setEnable(true);
             const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text}, userToken);
-            request.then(props => console.log(props)).catch(props => console.log(props.response.status));
+            request.then(props => {
+                console.log(props);
+                setEnable(false);
+            }).catch(props => {
+                console.log(props.response.status);
+                setEnable(false);
+            });
         }
     }
 
@@ -28,7 +36,7 @@ export default function Publish() {
                 <textarea placeholder='Muito irado esse link falando de #javascript'
                 onChange={e => setText(e.target.value)}
                 value={text} />
-                <div className='container-button'><button onClick={verifyLink}>Publicar</button></div>
+                <div className='container-button'><button onClick={verifyLink} disabled={enable}>{!enable ? "Publicar" : "Publicando..."}</button></div>
             </div>
         </Container>
     );
