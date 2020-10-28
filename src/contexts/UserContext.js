@@ -7,9 +7,12 @@ export default UserContext;
 
 export function UserProvider(props){
     const [user, setUser] = useState({});
+    const [ userToken, setUserToken ] = useState({});
 
+    console.log(userToken)
+   
     return(
-        <UserContext.Provider value={{user,setUser}}>
+        <UserContext.Provider value={{user, setUser, userToken, setUserToken}}>
             {props.children}
         </UserContext.Provider>
     )

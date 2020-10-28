@@ -9,7 +9,7 @@ export default function Login({setTask}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [enable,setEnable] = useState(false);
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser, setUserToken} = useContext(UserContext);
     const history = useHistory();
 
     function verifyInputs(){
@@ -21,12 +21,13 @@ export default function Login({setTask}){
             request.then(props => {
                 history.push('/timeline');
                 setUser(props.data);
+                setUserToken({headers: {"user-token": props.data.token}})
             }).catch(() => {
                 alert("Email/Senha incorretos");
                 setEnable(false);
             });
         }
-    }
+    } 
 
     return(
         <>

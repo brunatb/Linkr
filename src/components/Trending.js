@@ -1,11 +1,25 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components';
+import axios from 'axios';
+
+import UserContext from '../contexts/UserContext';
 
 export default function Trending() {
+    const { userToken } = useContext(UserContext);
+    const [ hashtags, setHashtags ] = useState({});
+
+    useEffect(() => {
+        const req = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/hashtags/trending',userToken);
+        
+        req.then( response => {
+            setHashtags(response.data);
+        });
+    }, [userToken]);
+
+    console.log(hashtags);
     return(
         <Nav>
             <h3>trending</h3>
-            <div/>
             <Tags>
                 <li>#javascript</li>
                 <li>#javascript</li>
@@ -21,6 +35,8 @@ export default function Trending() {
         </Nav>
     );
 }
+
+// {hashtags.map(h => <li>#{h.name}</li>)}
 
 const Nav = styled.nav`
     width: 40%;
