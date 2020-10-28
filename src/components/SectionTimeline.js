@@ -16,12 +16,23 @@ export default function SectionTimeline() {
         request.then(response => setPosts(response.data.posts));
     },[userToken]);
     
-    console.log(posts);
     return(
         <PostsContainer>
-            <Publish />
-            {posts.map(post => <Posts post={post} />)}
+            <Publish />            
+            {posts.length === 0 ? 
+                (<Load><img src="./images/loading.gif"></img></Load>) : 
+                (posts.map(post => <Posts post={post} />))
+            }            
         </PostsContainer>
     );
 }
 
+const Load = styled.div`
+    display:flex;
+    justify-content:center;
+
+    img{
+        width:60px;
+        border-radius:10px;
+    }
+`;
