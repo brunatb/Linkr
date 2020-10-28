@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
+import UserContext from '../contexts/UserContext';
 
 export default function Publish() {
     const [link, setLink] = useState('');
     const [text, setText] = useState('');
+    const  { userToken } = useContext(UserContext);
 
     function verifyLink(){
         if(!link){
             alert('Preencha o campo de link!');
+        }else{
+            const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text}, userToken);
+            request.then(props => console.log(props)).catch(props => console.log(props.response.status));
         }
     }
 
