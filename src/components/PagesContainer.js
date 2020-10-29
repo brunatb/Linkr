@@ -26,4 +26,12 @@ const StyledContainer = styled.section`
         justify-content: space-between;
         margin-top: 40px;
     }
+
+    @media (max-width: 800px){
+        padding:0;
+
+        h2{
+            margin-left:10px;
+        }
+    }
 `;

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom';
-import ReactHashtag from 'react-hashtag';
 
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
@@ -61,7 +60,6 @@ const Profile = styled.div`
 `;
 
 const Body = styled.div`
-
     width: 100%;
 
     h3 {

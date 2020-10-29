@@ -67,25 +67,21 @@ const Container = styled.section`
     font-family: 'Lato';
     margin-bottom: 30px;
 
-
     img {
        width: 60px;
        height: 60px;
        border-radius: 50%;
     }
-
     div { 
         width: 100%;
         padding: 0 0 0 10px;
-    }
-    
+    }    
     p{
         color: #707070;
         font-size: 20px;
         line-height: 24px;
         margin: 15px 0 10px 0;
     }
-
     input, textarea {
         width: 100%;
         background: #EFEFEF;
@@ -93,21 +89,17 @@ const Container = styled.section`
         margin-bottom: 10px;
         padding: 10px 10px;
     }
-
     input {
         height: 30px;
-    }
-    
+    }    
     textarea {
         height: 70px;
     }
-
     .container-button{
         width: 100%;
         display: flex;
         justify-content: flex-end;
     }
-
     button {
         width: 110px;
         height: 30px;
@@ -117,5 +109,10 @@ const Container = styled.section`
         cursor: pointer;
     }
 
-    
+    @media (max-width: 800px){
+        border-radius:0;
+        img{
+            display:none;
+        }
+    }
 `;

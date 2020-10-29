@@ -20,7 +20,7 @@ export default function Main(){
 }
 
 const Container = styled.div`
-    width: 100vw;
+    width: 100%;
     display: flex;
     height: 100vh;
     color: #FFF;
