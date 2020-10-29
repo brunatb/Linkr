@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import ReactHashtag from 'react-hashtag';
 
@@ -12,7 +12,6 @@ export default function Posts(props) {
     const {text, linkTitle, linkDescription, link, linkImage} = props.post;
     const { user } = useContext(UserContext);
     const history = useHistory();
-    const [like,setLike] = useState(false);
     
     function hashtagPage(hashtag){
         hashtag = hashtag.slice(1);
@@ -23,7 +22,7 @@ export default function Posts(props) {
         <Container>
             <Profile>
                 <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><img src={avatar} /></Link>
-                {like? <FcLike className="icon-like"/> : <AiOutlineHeart onClick={() => setLike(true)} className="icon" />}
+                <AiOutlineHeart className="icon" />
             </Profile>
             <Body>
             <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><h3>{username}</h3></Link>
@@ -72,9 +71,6 @@ const Profile = styled.div`
         margin-bottom: 20px;
     }
     .icon{
-        cursor: pointer;
-    }
-    .icon,.icon-like{
         font-size:24px;
     }
 `;
