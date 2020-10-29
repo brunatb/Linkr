@@ -1,9 +1,13 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
+
 import UserContext from '../contexts/UserContext';
 
-export default function Publish() {
+import SectionTimeline from './SectionTimeline';
+
+export default function Publish({ setPosts }) {
     const [link, setLink] = useState('');
     const [text, setText] = useState('');
     const  { userToken } = useContext(UserContext);
@@ -15,16 +19,23 @@ export default function Publish() {
         }else{
             setEnable(true);
             const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text}, userToken);
-            request.then(props => {
-                console.log(props);
-                setEnable(false);
-            }).catch(errorCase);
+            request.then(successCase).catch(errorCase);
         }
     }
 
     function errorCase(){
         alert("Houve um erro ao publicar seu link!");
         setEnable(false);
+    }
+
+    function successCase(){
+        setEnable(false);
+        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=0&limit=10",userToken);
+        request.then(response => {
+            setPosts(response.data.posts);
+            setLink('');
+            setText('');
+        }).catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
     }
 
     return(
