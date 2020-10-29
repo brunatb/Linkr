@@ -5,17 +5,17 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 
 export default function Posts(props) {
-    const {avatar,username} = props.post.user;
+    const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage} = props.post;
-    
+
     return(
         <Container>
             <Profile>
-                <img src={avatar} />
+                <Link to={`/user/${id}`}><img src={avatar} /></Link>
                 <AiOutlineHeart />
             </Profile>
             <Body>
-                <h3>{username}</h3>
+            <Link to={`/user/${id}`}><h3>{username}</h3></Link>
                 <p>{text}</p>
                 <A>
                     <div>
@@ -48,11 +48,11 @@ const Profile = styled.div`
     margin-right: 10px;
     
     img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-bottom: 20px;
- }
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+    }
 `;
 
 const Body = styled.div`
@@ -61,6 +61,7 @@ const Body = styled.div`
         font-family: Lato;
         font-size: 19px;
         padding-bottom: 5px;
+        color: #CECECE;
     }
 
     p {
@@ -78,7 +79,6 @@ const A = styled.div`
 
     h3 {
         font-size: 15px;
-        color: #CECECE;
     }
     p {
         font-size: 10px;
