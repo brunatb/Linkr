@@ -12,7 +12,7 @@ export default function Posts(props) {
         <Container>
             <Profile>
                 <Link to={`/user/${id}`}><img src={avatar} /></Link>
-                <AiOutlineHeart />
+                <AiOutlineHeart className="icon" />
             </Profile>
             <Body>
             <Link to={`/user/${id}`}><h3>{username}</h3></Link>
@@ -39,6 +39,7 @@ const Container = styled.section`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 20px;
     font-family: 'Lato';
+    margin-bottom:20px;
 `;
 
 const Profile = styled.div`
@@ -52,6 +53,9 @@ const Profile = styled.div`
         height: 60px;
         border-radius: 50%;
         margin-bottom: 20px;
+    }
+    .icon{
+        font-size:24px;
     }
 `;
 
@@ -81,16 +85,17 @@ const A = styled.div`
         font-size: 15px;
     }
     p {
-        font-size: 10px;
+        font-size: 12px;
         color: #9B9595;
     }
     span {
-        font-size: 9px;
+        font-size: 10px;
         color: #CECECE;
     }
 
     & > div > img {
         width: 100px;
+        height: 100px;
         border-radius: 0px 12px 13px 0px;
     }
 

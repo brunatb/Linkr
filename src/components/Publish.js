@@ -10,7 +10,7 @@ import SectionTimeline from './SectionTimeline';
 export default function Publish({ setPosts }) {
     const [link, setLink] = useState('');
     const [text, setText] = useState('');
-    const  { userToken } = useContext(UserContext);
+    const  { userToken, user } = useContext(UserContext);
     const [enable, setEnable] = useState(false);
 
     function verifyLink(){
@@ -40,7 +40,7 @@ export default function Publish({ setPosts }) {
 
     return(
         <Container>
-            <img src='./business+face+people+icon-1320086457520622872.png' />
+            <img src={user.user.avatar} />
             <div>
                 <p>O que você tem para favoritar hoje?</p>
                 <input type="text" name="link" placeholder='http://...' 

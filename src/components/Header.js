@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import Menu from './Menu';
+import UserContext from '../contexts/UserContext';
 
 export default function Header() {
     const [openMenu, setOpenMenu] = useState(false);
+    const { user } = useContext(UserContext);
     return (
         <Top>
             <p>linkr</p>
             <Profile>
                 {!openMenu ? <AiOutlineDown className='icon' onClick={() => setOpenMenu(true)} /> : <AiOutlineUp className='icon' onClick={() => setOpenMenu(false)} />}
-                <img src='./business+face+people+icon-1320086457520622872.png' />
+                <img src={user.user.avatar} />
                 {!openMenu ? "" : <Menu />}
             </Profile>
         </Top>
@@ -42,12 +44,13 @@ const Profile = styled.div`
     height: 60px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     font-size: 20px;
     position: relative;
 
     img {
-        width: 60px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
     }
 
