@@ -10,7 +10,7 @@ import { UserProvider } from '../contexts/UserContext';
 import Main from '../pages/Main'
 import MyPosts from '../pages/MyPosts';
 import TimeLine from '../pages/TimeLine';
-import UserId from './UserId';
+import UserId from '../pages/UserId';
  
 export default function App(){
 

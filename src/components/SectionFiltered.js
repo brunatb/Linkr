@@ -23,13 +23,13 @@ export default function SectionFiltered({linkApi, title}){
             setPosts(response.data.posts);
             setLoad(true);
         })
-    }, [userToken])
+    }, [userToken, linkApi])
 
     return(
         <>
             <Header />
             <PagesContainer>
-                <h2>{title}</h2>
+                <h2>{title ? title : (posts.length !== 0 ? `${posts[0].user.username}'s posts` : 'Carregando...')}</h2>
                 <div>
                     <PostsContainer>
                         {
