@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -20,7 +21,14 @@ export default function Trending() {
         <Nav>
             <h3>trending</h3>
             <Tags>
-                {hashtags !== null ? hashtags.map((h) => <li key={h.id}>#{h.name}</li>) : 'caregando...'}
+                {hashtags !== null 
+                ? hashtags.map((h) => {
+                    return(
+                        <Link to={`/hashtag/:${h.name}`} key={h.id} >
+                            <li>#{h.name}</li>
+                        </Link>
+                    )}) 
+                : 'caregando...'}
             </Tags>
         </Nav>
     );
