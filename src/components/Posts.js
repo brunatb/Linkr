@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import ReactHashtag from 'react-hashtag';
 
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
@@ -61,6 +62,8 @@ const Profile = styled.div`
 
 const Body = styled.div`
 
+    width: 100%;
+
     h3 {
         font-family: Lato;
         font-size: 19px;
@@ -79,7 +82,7 @@ const A = styled.div`
     border: 1px solid #4D4D4D;
     border-radius: 10px;
     display: flex;
-    width: 100%;
+    justify-content: space-between;
 
     h3 {
         font-size: 15px;
