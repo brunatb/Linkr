@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components';
+import ReactHashtag from 'react-hashtag';
+
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 
 
@@ -10,8 +12,13 @@ export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage} = props.post;
     const { user } = useContext(UserContext);
-    console.log(user.user.id);
-    console.log(id);
+    const history = useHistory();
+    
+    function hashtagPage(hashtag){
+        hashtag = hashtag.slice(1);
+        history.push(`/hashtag/${hashtag}`);
+    }
+
     return(
         <Container>
             <Profile>
@@ -20,7 +27,7 @@ export default function Posts(props) {
             </Profile>
             <Body>
             <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><h3>{username}</h3></Link>
-                <p>{text}</p>
+                <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p>
                 <A href={link} target="_blank">
                     <div>
                         <h3>{linkTitle}</h3>
@@ -44,6 +51,12 @@ const Container = styled.section`
     padding: 20px;
     font-family: 'Lato';
     margin-bottom:20px;
+
+   span{
+       color: white;
+       font-weight: bold;
+       cursor: pointer;
+   }
 `;
 
 const Profile = styled.div`
