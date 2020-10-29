@@ -1,6 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components';
 import ReactHashtag from 'react-hashtag';
+import axios from 'axios';
+import ReactTooltip from 'react-tooltip';
 
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -9,21 +11,72 @@ import UserContext from '../contexts/UserContext';
 
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
-    const {text, linkTitle, linkDescription, link, linkImage} = props.post;
-    const { user } = useContext(UserContext);
+    const {text, linkTitle, linkDescription, link, linkImage, likes } = props.post;
+    const { user, userToken } = useContext(UserContext);
     const history = useHistory();
     const [like,setLike] = useState(false);
+    const [likeMessage, setLikeMessage] = useState("");
+    const [numLikes, setNumLikes] = useState(likes.length);
+
+    useEffect(() => {
+        setLike(likes.some(like => like.userId === user.user.id));
+    },[]);
+    useEffect(() => {
+        let text = "";
+        if (like) {
+            switch (numLikes){
+                case 1: text = "Você";
+                        break;
+                case 2: text = "Você e "+likes[0]['user.username'];
+                        break;
+                case 3: text = "Você, "+likes[0]['user.username']+" e "+(numLikes - 2)+" pessoa";
+                        break;
+                default: text = "Você, "+likes[0]['user.username']+" e "+(numLikes - 2)+" pessoas";
+            }
+        }else{
+            switch (numLikes){
+                case 0: text = "0 curtidas";
+                        break;
+                case 1: text = likes[0]['user.username'];
+                        break;
+                case 2: text = likes[0]['user.username']+" e "+(numLikes - 1)+" pessoa";
+                        break;
+                default: text = likes[0]['user.username']+" e "+(numLikes - 1)+" pessoas";
+            }
+        }
+        setLikeMessage(text);
+    },[numLikes, like]);
+    useEffect(() => {
+        ReactTooltip.rebuild();
+    },[like])
     
     function hashtagPage(hashtag){
         hashtag = hashtag.slice(1);
         history.push(`/hashtag/${hashtag}`);
+    }
+    function likePost(){
+        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+props.post.id+"/like",{},userToken);
+        request.then(() => {
+            setLike(true);
+            setNumLikes(numLikes+1);
+        });
+    }
+    function dislikePost(){
+        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+props.post.id+"/dislike",{},userToken);
+        request.then(() => {
+            setLike(false);
+            setNumLikes(numLikes-1);
+        });
     }
 
     return(
         <Container>
             <Profile>
                 <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><img src={avatar} /></Link>
-                {like? <FcLike className="icon-like"/> : <AiOutlineHeart onClick={() => setLike(true)} className="icon" />}
+                {like ? 
+                    <FcLike data-tip={likeMessage} onClick={dislikePost} className="icon"/> : 
+                    <AiOutlineHeart data-tip={likeMessage} onClick={likePost} className="icon" />}
+                <ReactTooltip />
             </Profile>
             <Body>
             <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><h3>{username}</h3></Link>
@@ -72,10 +125,8 @@ const Profile = styled.div`
         margin-bottom: 20px;
     }
     .icon{
-        cursor: pointer;
-    }
-    .icon,.icon-like{
         font-size:24px;
+        cursor: pointer;
     }
 `;
 
