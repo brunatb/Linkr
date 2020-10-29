@@ -14,4 +14,7 @@ const StyledContainer = styled.div`
     width: 100%;
     height: 100%;
     margin-right: 30px;
+    @media (max-width: 800px){
+        margin:0;
+    }
 `;

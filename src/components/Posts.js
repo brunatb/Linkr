@@ -60,6 +60,7 @@ const Profile = styled.div`
 `;
 
 const Body = styled.div`
+    width:100%;
 
     h3 {
         font-family: Lato;
@@ -79,6 +80,7 @@ const A = styled.div`
     border: 1px solid #4D4D4D;
     border-radius: 10px;
     display: flex;
+    justify-content:space-between;
     width: 100%;
 
     h3 {

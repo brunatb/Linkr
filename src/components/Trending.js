@@ -49,6 +49,9 @@ const Nav = styled.nav`
     div {
         border: 1px solid #484848;
     }
+    @media (max-width: 800px){
+        display:none;
+    }
 `;
 
 const Tags = styled.ul`

@@ -20,7 +20,7 @@ export default function Header() {
 }
 
 const Top = styled.header`
-    width: 100%;
+    width: 100vw;
     height: 75px;
     position: fixed;
     top: 0px;

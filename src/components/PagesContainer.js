@@ -11,7 +11,7 @@ export default function PagesContainer(props){
 }
 
 const StyledContainer = styled.section`
-    width: 100%;
+    width: 100vw;
     height: 100%;
     color: #fff;
     padding: 0 10%;
@@ -25,5 +25,13 @@ const StyledContainer = styled.section`
         display: flex;
         justify-content: space-between;
         margin-top: 40px;
+    }
+
+    @media (max-width: 800px){
+        padding:0;
+
+        h2{
+            margin-left:10px;
+        }
     }
 `;
