@@ -3,8 +3,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-
-
 import Posts from './Posts';
 import PostsContainer from './PostsContainer';
 import Publish from './Publish';
