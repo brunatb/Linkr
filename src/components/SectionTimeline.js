@@ -11,11 +11,9 @@ import Publish from './Publish';
 import UserContext from '../contexts/UserContext';
 
 export default function SectionTimeline() {
-    const { userToken } = useContext(UserContext);
+    const { userToken, page, setPage, moreLoad, setMoreLoad } = useContext(UserContext);
     const [posts, setPosts] = useState ([]);
     const [load, setLoad] = useState (false);
-    const [page, setPage] = useState(1);
-    const [moreLoad, setMoreLoad] = useState (10);
     
     useEffect(() => {
         const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=${page}&limit=${moreLoad}`, userToken);
@@ -35,8 +33,7 @@ export default function SectionTimeline() {
                         dataLength={posts.length}
                         next={() => {
                             setPage(page + 1);
-                            setMoreLoad(moreLoad + 10)
-                        }}
+                            setMoreLoad(moreLoad + 10)}}
                         hasMore={true}>
                             {(posts.map((post) => <Posts key={post.id} post={post} />))}
                     </InfiniteScroll>
