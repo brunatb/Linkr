@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -19,8 +20,16 @@ export default function Trending() {
     return(
         <Nav>
             <h3>trending</h3>
+            <div />
             <Tags>
-                {hashtags !== null ? hashtags.map((h) => <li key={h.id}>#{h.name}</li>) : 'caregando...'}
+                {hashtags !== null 
+                ? hashtags.map((h) => {
+                    return(
+                        <Link to={`/hashtag/${h.name}`} key={h.id} >
+                            <li>#{h.name}</li>
+                        </Link>
+                    )}) 
+                : 'caregando...'}
             </Tags>
         </Nav>
     );
@@ -50,5 +59,6 @@ const Tags = styled.ul`
     li {
         margin-top: 15px;
         font-size: 18px;
+        color: white;
     }
 `;

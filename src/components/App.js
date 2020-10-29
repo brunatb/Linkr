@@ -10,6 +10,7 @@ import { UserProvider } from '../contexts/UserContext';
 import Main from '../pages/Main'
 import MyPosts from '../pages/MyPosts';
 import TimeLine from '../pages/TimeLine';
+import Hashtag from '../pages/Hashtag';
 import UserId from '../pages/UserId';
  
 export default function App(){
@@ -23,6 +24,9 @@ export default function App(){
                     </Route>
                     <Route path='/my-posts'>
                         <MyPosts />
+                    </Route>
+                    <Route path='/hashtag/:hashtag'>
+                        <Hashtag />
                     </Route>
                     <Route path='/user/:id'>
                         <UserId />
