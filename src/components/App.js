@@ -6,39 +6,16 @@ import {
 } from "react-router-dom";
 
 import { UserProvider } from '../contexts/UserContext';
+import Container from './Container';
 
-import Main from '../pages/Main'
-import MyPosts from '../pages/MyPosts';
-import TimeLine from '../pages/TimeLine';
-import Hashtag from '../pages/Hashtag';
-import UserId from '../pages/UserId';
-import MyLikes from '../pages/MyLikes';
+
  
 export default function App(){
 
     return(
         <UserProvider>
             <Router>
-                <Switch>
-                    <Route path='/timeline'>
-                        <TimeLine  />
-                    </Route>
-                    <Route path='/my-posts'>
-                        <MyPosts />
-                    </Route>
-                    <Route path='/my-likes'>
-                        <MyLikes />
-                    </Route>
-                    <Route path='/hashtag/:hashtag'>
-                        <Hashtag />
-                    </Route>
-                    <Route path='/user/:id'>
-                        <UserId />
-                    </Route>
-                    <Route path='/'>
-                        <Main  />
-                    </Route>
-                </Switch>
+                <Container />
             </Router>
         </UserProvider>
     );
