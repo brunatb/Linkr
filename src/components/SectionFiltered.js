@@ -33,8 +33,8 @@ export default function SectionFiltered({linkApi, title}){
                 <div>
                     <PostsContainer>
                         {
-                            (!posts && !load) ? (<Load><img src="./images/loading.gif" /></Load>) :
-                            (!posts && load) ? (<Text>Nenhum post encontrado</Text>) : 
+                            (posts.length === 0 && !load) ? (<Load><img src="../images/loading.gif" /></Load>) :
+                            (posts.length === 0 && load) ? (<Text>Nenhum post encontrado</Text>) : 
                             (posts.map((post) => <Posts key={post.id} post={post} />))
                         }
                     </PostsContainer>

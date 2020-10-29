@@ -1,6 +1,7 @@
 import React,{ useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import Posts from './Posts';
 import PostsContainer from './PostsContainer';
@@ -11,15 +12,16 @@ export default function SectionTimeline() {
     const { userToken } = useContext(UserContext);
     const [posts, setPosts] = useState ([]);
     const [load, setLoad] = useState (false);
+    const [page, setPage] = useState(1);
+    const [moreLoad, setMoreLoad] = useState (10);
     
     useEffect(() => {
-        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=0&limit=10",userToken);
+        const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=${page}&limit=${moreLoad}`, userToken);
         request.then(response => {
             setPosts(response.data.posts);
             setLoad (true);
         }).catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
-    },[userToken]);
-    
+    },[userToken, page, moreLoad]);
     return(
         <PostsContainer>
             <Publish setPosts={setPosts} />            
@@ -27,7 +29,15 @@ export default function SectionTimeline() {
                 (<Load><img src="./images/loading.gif"></img></Load>) : 
                 ((posts.length === 0 && load) ? 
                     (<Text>Nenhum post encontrado</Text>) : 
-                    (posts.map((post,i) => <Posts key={i} post={post} />))
+                    <InfiniteScroll
+                        dataLength={posts.length}
+                        next={() => {
+                            setPage(page + 1);
+                            setMoreLoad(moreLoad + 10)
+                        }}
+                        hasMore={true}>
+                            {(posts.map((post) => <Posts key={post.id} post={post} />))}
+                    </InfiniteScroll>
                 )
             }                     
         </PostsContainer>
