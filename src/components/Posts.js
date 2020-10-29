@@ -5,6 +5,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 
+
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage} = props.post;
