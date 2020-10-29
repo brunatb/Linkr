@@ -10,7 +10,7 @@ export default function Menu(){
         <StyledMenu>
             <ul>
                 <Link to='my-posts'><li>My posts</li></Link>
-                <li>My likes</li>
+                <Link to='my-likes'><li>My likes</li></Link>
                 <Link to='/' onClick={() => setUser({})}><li>Logout</li></Link>
             </ul>
         </StyledMenu>

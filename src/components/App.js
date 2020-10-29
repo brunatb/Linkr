@@ -12,6 +12,7 @@ import MyPosts from '../pages/MyPosts';
 import TimeLine from '../pages/TimeLine';
 import Hashtag from '../pages/Hashtag';
 import UserId from '../pages/UserId';
+import MyLikes from '../pages/MyLikes';
  
 export default function App(){
 
@@ -24,6 +25,9 @@ export default function App(){
                     </Route>
                     <Route path='/my-posts'>
                         <MyPosts />
+                    </Route>
+                    <Route path='/my-likes'>
+                        <MyLikes />
                     </Route>
                     <Route path='/hashtag/:hashtag'>
                         <Hashtag />
