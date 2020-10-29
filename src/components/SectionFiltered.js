@@ -41,7 +41,7 @@ export default function SectionFiltered({linkApi, title}){
                                 next={() => {
                                     setPage(page + 1);
                                     setMoreLoad(moreLoad + 10)}}
-                                hasMore={true}>
+                                hasMore={posts.length < moreLoad ? false : true}>
                                     {(posts.map((post) => <Posts key={post.id} post={post} />))}
                             </InfiniteScroll>
                         }
