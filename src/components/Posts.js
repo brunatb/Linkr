@@ -1,23 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage} = props.post;
-
+    const { user } = useContext(UserContext);
+    console.log(user.user.id);
+    console.log(id);
     return(
         <Container>
             <Profile>
-                <Link to={`/user/${id}`}><img src={avatar} /></Link>
+                <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><img src={avatar} /></Link>
                 <AiOutlineHeart className="icon" />
             </Profile>
             <Body>
-            <Link to={`/user/${id}`}><h3>{username}</h3></Link>
+            <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><h3>{username}</h3></Link>
                 <p>{text}</p>
-                <A>
+                <A href={link} target="_blank">
                     <div>
                         <h3>{linkTitle}</h3>
                         <p>{linkDescription}</p>
@@ -76,7 +79,7 @@ const Body = styled.div`
     }
 `;
 
-const A = styled.div`
+const A = styled.a`
     border: 1px solid #4D4D4D;
     border-radius: 10px;
     display: flex;
@@ -95,12 +98,17 @@ const A = styled.div`
     }
 
     & > div > img {
-        width: 100px;
-        height: 100px;
-        border-radius: 0px 12px 13px 0px;
+        width: 100%;
+        height: 100%;
+        border-radius: 0px 10px 10px 0px;
     }
 
-    div {
+    div:first-child {
+        width: 70%;
         padding: 10px;
+    }
+
+    div:last-child{
+        width: 30%;
     }
 `;

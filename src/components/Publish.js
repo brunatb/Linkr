@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import UserContext from '../contexts/UserContext';
@@ -40,7 +41,7 @@ export default function Publish({ setPosts }) {
 
     return(
         <Container>
-            <img src={user.user.avatar} />
+            <Link to={'/my-posts'}><img src={user.user.avatar} /></Link>
             <div>
                 <p>O que você tem para favoritar hoje?</p>
                 <input type="text" name="link" placeholder='http://...' 
