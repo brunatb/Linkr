@@ -2,6 +2,8 @@ import React,{ useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+
+
 import Posts from './Posts';
 import PostsContainer from './PostsContainer';
 import Publish from './Publish';
@@ -11,14 +13,15 @@ export default function SectionTimeline() {
     const { userToken } = useContext(UserContext);
     const [posts, setPosts] = useState ([]);
     const [load, setLoad] = useState (false);
+    const [page, setPage] = useState(1);
     
     useEffect(() => {
-        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=0&limit=10",userToken);
+        const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=${page}&limit=10`, userToken);
         request.then(response => {
             setPosts(response.data.posts);
             setLoad (true);
         }).catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
-    },[userToken]);
+    },[userToken, page]);
     
     return(
         <PostsContainer>
