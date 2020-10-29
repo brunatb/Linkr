@@ -20,11 +20,12 @@ export default function Trending() {
     return(
         <Nav>
             <h3>trending</h3>
+            <div />
             <Tags>
                 {hashtags !== null 
                 ? hashtags.map((h) => {
                     return(
-                        <Link to={`/hashtag/:${h.name}`} key={h.id} >
+                        <Link to={`/hashtag/${h.name}`} key={h.id} >
                             <li>#{h.name}</li>
                         </Link>
                     )}) 
@@ -58,5 +59,6 @@ const Tags = styled.ul`
     li {
         margin-top: 15px;
         font-size: 18px;
+        color: white;
     }
 `;
