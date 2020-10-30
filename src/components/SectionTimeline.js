@@ -14,12 +14,16 @@ export default function SectionTimeline() {
     const [load, setLoad] = useState (false);
     
     useEffect(() => {
-        const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=${page}&limit=${moreLoad}`, userToken);
+        const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=${page}&limit=10`, userToken);
         request.then(response => {
-            setPosts(response.data.posts);
+            let newPosts = [...posts, ...response.data.posts];
+            setPosts(newPosts);
             setLoad (true);
         }).catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
     },[userToken, page, moreLoad]);
+
+    console.log(posts.length);
+
     return(
         <PostsContainer>
             <Publish setPosts={setPosts} />            
@@ -30,8 +34,8 @@ export default function SectionTimeline() {
                     <InfiniteScroll
                         dataLength={posts.length}
                         next={() => {
-                            setPage(page + 1);
-                            setMoreLoad(moreLoad + 10)}}
+                            setPage(page + 10);
+                        }}
                         hasMore={true}>
                             {(posts.map((post) => <Posts key={post.id} post={post} />))}
                     </InfiniteScroll>
