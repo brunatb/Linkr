@@ -110,6 +110,7 @@ const Container = styled.section`
     padding: 20px;
     font-family: 'Lato';
     margin-bottom:20px;
+    max-width: 60vw;
 
    span{
        color: white;
@@ -134,12 +135,13 @@ const Profile = styled.div`
         font-size:24px;
         cursor: pointer;
     }
+
 `;
 
 const Body = styled.div`
     width: 100%;
 
-    h3 {
+    h3{
         font-family: Lato;
         font-size: 19px;
         padding-bottom: 5px;
@@ -159,7 +161,7 @@ const A = styled.a`
     display: flex;
     justify-content: space-between;
 
-    h3 {
+    & > div > h3 {
         font-size: 15px;
     }
     p {
@@ -169,6 +171,10 @@ const A = styled.a`
     span {
         font-size: 10px;
         color: #CECECE;
+        max-width: 50ch;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     & > div > img {
@@ -179,7 +185,10 @@ const A = styled.a`
 
     div:first-child {
         width: 70%;
-        padding: 10px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     div:last-child{
