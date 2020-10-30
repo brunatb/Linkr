@@ -9,11 +9,10 @@ export function UserProvider(props){
     const [user, setUser] = useState({});
     const [ userToken, setUserToken ] = useState({});
 
-    const [page, setPage] = useState(1);
-    const [moreLoad, setMoreLoad] = useState (10);
+    const [page, setPage] = useState(0);
    
     return(
-        <UserContext.Provider value={{user, setUser, userToken, setUserToken, page, setPage, moreLoad, setMoreLoad}}>
+        <UserContext.Provider value={{user, setUser, userToken, setUserToken, page, setPage}}>
             {props.children}
         </UserContext.Provider>
     )

@@ -6,7 +6,7 @@ import UserContext from '../contexts/UserContext';
 export default function UserId(){
     const { id } = useParams();
     const { page, moreLoad } = useContext(UserContext);
-    const linkApi = `https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/posts?offset=${page}&limit=${moreLoad}`
+    const linkApi = `https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/posts?offset=${page}&limit=10`
 
     return(
         <SectionFiltered linkApi={linkApi} title={""} />

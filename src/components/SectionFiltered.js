@@ -14,17 +14,30 @@ import UserContext from '../contexts/UserContext';
 
 
 export default function SectionFiltered({linkApi, title}){
-    const { userToken, page, setPage, moreLoad, setMoreLoad } = useContext(UserContext);
+    const { userToken, page, setPage, } = useContext(UserContext);
     const [posts, setPosts] = useState([]);
     const [load, setLoad] = useState (false);
 
     useEffect(() => {
+        let mounted = true;
         const request = axios.get(linkApi, userToken);
         request.then(response => {
-            setPosts(response.data.posts);
-            setLoad(true);
+            if(mounted){
+                let newPosts
+                if(response.data.length !== 0){
+                    newPosts = [...posts, ...response.data.posts];
+                }else{
+                    newPosts=[...posts];
+                }
+
+                setPosts(newPosts);
+                setLoad(true);
+            }
         })
-    }, [userToken, linkApi, page, moreLoad])
+
+        return () => mounted = false;
+
+    }, [userToken, linkApi, page])
 
     return(
         <>
@@ -39,9 +52,9 @@ export default function SectionFiltered({linkApi, title}){
                             <InfiniteScroll
                                 dataLength={posts.length}
                                 next={() => {
-                                    setPage(page + 1);
-                                    setMoreLoad(moreLoad + 10)}}
-                                hasMore={posts.length < moreLoad ? false : true}>
+                                    setPage(page + 10);
+                                }}
+                                hasMore={posts.length < 10 ? false : true}>
                                     {(posts.map((post) => <Posts key={post.id} post={post} />))}
                             </InfiniteScroll>
                         }

@@ -13,7 +13,7 @@ import UserContext from '../contexts/UserContext';
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage, likes } = props.post;
-    const { user, userToken } = useContext(UserContext);
+    const { user, userToken, setPage } = useContext(UserContext);
     const history = useHistory();
     const [like,setLike] = useState(false);
     const [likeMessage, setLikeMessage] = useState("");
@@ -52,6 +52,7 @@ export default function Posts(props) {
     },[like])
     
     function hashtagPage(hashtag){
+        setPage(0);
         hashtag = hashtag.slice(1);
         history.push(`/hashtag/${hashtag}`);
     }
@@ -73,14 +74,18 @@ export default function Posts(props) {
     return(
         <Container>
             <Profile>
-                <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><img src={avatar} /></Link>
+                <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                    onClick={()=>setPage(0)}
+                ><img src={avatar} /></Link>
                 {like ? 
                     <FcLike data-tip={likeMessage} onClick={dislikePost} className="icon"/> : 
                     <AiOutlineHeart data-tip={likeMessage} onClick={likePost} className="icon" />}
                 <ReactTooltip />
             </Profile>
             <Body>
-            <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}><h3>{username}</h3></Link>
+            <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                onClick={()=>setPage(0)}
+            ><h3>{username}</h3></Link>
                 <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p>
                 <A href={link} target="_blank">
                     <div>
@@ -89,7 +94,7 @@ export default function Posts(props) {
                         <span>{link}</span>
                     </div>
                     <div>
-                        <img src={linkImage} />
+                        <img src={linkImage ? linkImage : './images/linkr-icon.png'} />
                     </div>
                 </A>
             </Body>

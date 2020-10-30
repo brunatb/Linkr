@@ -1,15 +1,17 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+
 import Menu from './Menu';
 import UserContext from '../contexts/UserContext';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     const [openMenu, setOpenMenu] = useState(false);
     const { user } = useContext(UserContext);
     return (
         <Top>
-            <p>linkr</p>
+            <Link to='/timeline'><p>linkr</p></Link>
             <Profile>
                 {!openMenu ? <AiOutlineDown className='icon' onClick={() => setOpenMenu(true)} /> : <AiOutlineUp className='icon' onClick={() => setOpenMenu(false)} />}
                 <img src={user.user.avatar} />
@@ -33,9 +35,10 @@ const Top = styled.header`
     color: #fff;
     font-family: 'Passion One';
 
-    & > p{
+    & > a{
         font-size: 50px;
         font-weight: 700;
+        color: #fff;
     }
 `;
 

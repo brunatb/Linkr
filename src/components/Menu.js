@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import UserContext from '../contexts/UserContext';
 
 export default function Menu(){
-    const {setUser} = useContext(UserContext);
+    const {setUser, setPage} = useContext(UserContext);
     return(
         <StyledMenu>
             <ul>
-                <Link to='/my-posts'><li>My posts</li></Link>
+                <Link to='/my-posts' onClick={() => setPage(0)}><li>My posts</li></Link>
                 <Link to='/my-likes'><li>My likes</li></Link>
                 <Link to='/'><li>Logout</li></Link>
             </ul>

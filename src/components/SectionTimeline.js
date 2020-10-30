@@ -9,20 +9,24 @@ import Publish from './Publish';
 import UserContext from '../contexts/UserContext';
 
 export default function SectionTimeline() {
-    const { userToken, page, setPage, moreLoad, setMoreLoad } = useContext(UserContext);
+    const { userToken, page, setPage } = useContext(UserContext);
     const [posts, setPosts] = useState ([]);
     const [load, setLoad] = useState (false);
     
     useEffect(() => {
+        let mounted = true;
         const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=${page}&limit=10`, userToken);
         request.then(response => {
-            let newPosts = [...posts, ...response.data.posts];
-            setPosts(newPosts);
-            setLoad (true);
+            if(mounted){
+                let newPosts = [...posts, ...response.data.posts];
+                setPosts(newPosts);
+                setLoad (true);
+            }
         }).catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
-    },[userToken, page, moreLoad]);
 
-    console.log(posts.length);
+        return () => mounted = false;
+
+    },[userToken, page]);
 
     return(
         <PostsContainer>

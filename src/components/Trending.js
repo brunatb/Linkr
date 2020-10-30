@@ -7,7 +7,7 @@ import UserContext from '../contexts/UserContext';
 import Forms from './Forms';
 
 export default function Trending() {
-    const { userToken } = useContext(UserContext);
+    const { userToken, setPage } = useContext(UserContext);
     const [ hashtags, setHashtags ] = useState(null);
     const [search, setSearch] = useState('');
     const history = useHistory();
@@ -22,6 +22,7 @@ export default function Trending() {
 
     function hashtagPage(){
         let hashtag = search;
+        setPage(0);
         if(hashtag.charAt(0) === '#') hashtag = hashtag.slice(1);
         history.push(`/hashtag/${hashtag}`);
         setSearch('');
@@ -41,7 +42,7 @@ export default function Trending() {
                 {hashtags !== null 
                 ? hashtags.map((h) => {
                     return(
-                        <Link to={`/hashtag/${h.name}`} key={h.id} >
+                        <Link to={`/hashtag/${h.name}`} onClick={() => setPage(1)} key={h.id} >
                             <li>#{h.name}</li>
                         </Link>
                     )}) 
