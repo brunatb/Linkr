@@ -8,10 +8,12 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
     const [openMenu, setOpenMenu] = useState(false);
-    const { user } = useContext(UserContext);
+    const { user, setPage } = useContext(UserContext);
+
+
     return (
         <Top>
-            <Link to='/timeline'><p>linkr</p></Link>
+            <Link to='/timeline' onClick={()=>setPage(0)}><p>linkr</p></Link>
             <Profile>
                 {!openMenu ? <AiOutlineDown className='icon' onClick={() => setOpenMenu(true)} /> : <AiOutlineUp className='icon' onClick={() => setOpenMenu(false)} />}
                 <img src={user.user.avatar} />

@@ -42,7 +42,7 @@ export default function Trending() {
                 {hashtags !== null 
                 ? hashtags.map((h) => {
                     return(
-                        <Link to={`/hashtag/${h.name}`} onClick={() => setPage(1)} key={h.id} >
+                        <Link to={`/hashtag/${h.name}`} onClick={() => setPage(0)} key={h.id} >
                             <li>#{h.name}</li>
                         </Link>
                     )}) 
