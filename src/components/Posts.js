@@ -84,9 +84,9 @@ export default function Posts(props) {
                 <p>{numLikes} likes</p>
             </Profile>
             <Body>
-            <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
-                onClick={()=>setPage(0)}
-            ><h3>{username}</h3></Link>
+            <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                    onClick={()=>setPage(0)}>
+                <h3>{username}</h3></Link>
                 <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p>
                 <A href={link} target="_blank">
                     <div>
@@ -113,11 +113,14 @@ const Container = styled.section`
     margin-bottom:20px;
     max-width: 60vw;
 
-   span{
-       color: white;
-       font-weight: bold;
-       cursor: pointer;
-   }
+    span{
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    @media (max-width: 800px){
+        max-width:100vw;
+    }
 `;
 
 const Profile = styled.div`
@@ -136,7 +139,6 @@ const Profile = styled.div`
         font-size:24px;
         cursor: pointer;
     }
-
 `;
 
 const Body = styled.div`
@@ -154,6 +156,13 @@ const Body = styled.div`
         color: #B7B7B7;
         margin-bottom: 15px;
     }
+    @media (max-width: 800px){
+        overflow:hidden;        
+        p{
+            word-wrap: break-word;
+        }    
+    }
+
 `;
 
 const A = styled.a`
@@ -161,7 +170,7 @@ const A = styled.a`
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
-
+    
     & > div > h3 {
         font-size: 15px;
     }
@@ -194,5 +203,18 @@ const A = styled.a`
 
     div:last-child{
         width: 30%;
+    }
+
+    @media (max-width: 800px){
+        max-width: 100%;
+        & > div > h3 {
+            word-wrap: break-word;
+        }
+        p{
+            word-wrap: break-word;
+        }
+        span{
+            max-width:30ch;
+        }
     }
 `;
