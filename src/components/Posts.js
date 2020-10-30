@@ -74,13 +74,14 @@ export default function Posts(props) {
     return(
         <Container>
             <Profile>
-                <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
-                    onClick={()=>setPage(0)}
-                ><img src={avatar} /></Link>
+                <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                        onClick={()=>setPage(0)}>
+                        <img src={avatar} /></Link>
                 {like ? 
                     <FcLike data-tip={likeMessage} onClick={dislikePost} className="icon"/> : 
                     <AiOutlineHeart data-tip={likeMessage} onClick={likePost} className="icon" />}
                 <ReactTooltip />
+                <p>{numLikes} likes</p>
             </Profile>
             <Body>
             <Link to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
