@@ -8,6 +8,8 @@ import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link, useHistory } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
+import Delete from './Delete';
+import Edit from './Edit';
 
 
 export default function Posts(props) {
@@ -84,9 +86,18 @@ export default function Posts(props) {
                 <p>{numLikes} likes</p>
             </Profile>
             <Body>
-            <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                <header><Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
                     onClick={()=>setPage(0)}>
-                <h3>{username}</h3></Link>
+                    <h3>{username}</h3></Link>
+                    { (user.user.id == id) 
+                        ?<div>
+                            <Edit />
+                            <Delete />
+                        </div>
+                        : null
+                    }
+                    
+                    </header>
                 <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p>
                 <A href={link} target="_blank">
                     <div>
@@ -143,6 +154,11 @@ const Profile = styled.div`
 
 const Body = styled.div`
     width: 100%;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+    }
 
     h3{
         font-family: Lato;

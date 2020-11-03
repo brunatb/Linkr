@@ -33,9 +33,11 @@
     "react-router-dom": "^5.2.0",
     "react-tooltip": "^4.2.10",
     "react-transition-group": "^4.4.1",
-    "styled-components": "^5.2.0",
+    "styled-components": "^5.2.1",
     "webpack": "^4.44.2",
-    "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.1.0"
   }
 }
