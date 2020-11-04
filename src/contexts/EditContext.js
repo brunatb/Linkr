@@ -21,7 +21,11 @@ export function EditProvider(props){
 
     function postEdit() {
         const req = axios.put(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/${postId}`, {text: textEdit}, userToken);
-        req.then(() => setModified(true))
+        req.then(() => {
+            setModified(true);
+            setEditing(false);
+            setDisabled(false);
+        })
         .catch(() => {
             setDisabled(false);
             alert('Não foi possível realizar as alterações desejadas.');
