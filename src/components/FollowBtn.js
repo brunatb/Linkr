@@ -8,6 +8,7 @@ import { AiOutlineTrademark } from 'react-icons/ai';
 export default function FollowBtn({id}){
     const [text, setText] = useState('');
     const{ userToken } = useContext(UserContext);
+    const [enable, setEnable] = useState(false);
     useEffect(() =>{
         const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', userToken);
         request.then(response =>{
@@ -26,6 +27,7 @@ export default function FollowBtn({id}){
     }
 
     function postAction(){
+        setEnable(true);
         if(text === 'Follow'){
             const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/follow`,{}, userToken);
             request.then(successCaseFollow).catch(errorCase);
@@ -48,7 +50,9 @@ export default function FollowBtn({id}){
     }
 
     return(
-        <Button onClick={postAction}>{text}</Button>
+        <Button onClick={() => {
+            postAction();
+        }} disabled={enable}>{text}</Button>
     )
 }
 
