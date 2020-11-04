@@ -8,7 +8,7 @@ import Posts from '../components/Posts';
 import Header from '../components/Header';
 import PagesContainer from '../components/PagesContainer';
 import Trending from '../components/Trending';
-
+import FollowBtn from './FollowBtn';
 
 import UserContext from '../contexts/UserContext';
 
@@ -43,7 +43,10 @@ export default function SectionFiltered({linkApi, title}){
         <>
             <Header />
             <PagesContainer>
-                <h2>{title ? title : (posts.length !== 0 ? `${posts[0].user.username}'s posts` : 'Carregando...')}</h2>
+                <div className='btn-container'>
+                    <h2>{title ? title : (posts.length !== 0 ? `${posts[0].user.username}'s posts` : 'Carregando...')}</h2>
+                    {title ? "" : <FollowBtn />}
+                </div>
                 <div>
                     <PostsContainer>
                         {

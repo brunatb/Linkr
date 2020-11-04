@@ -17,6 +17,13 @@ const StyledContainer = styled.section`
     padding: 0 10%;
     margin: 150px 0px;
 
+    .btn-container{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     h2 {
         font-size: 40px;
     }
