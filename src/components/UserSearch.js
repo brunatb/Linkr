@@ -5,25 +5,37 @@ import axios from 'axios';
 import UserContext from '../contexts/UserContext';
 
 export default function UserSearch(){
-    const [search, setSearch] = useState('');
+    const [results, setResults] = useState([]);
     const { userToken } = useContext(UserContext);
 
-    function getResults(){
-        if(search !== ''){
+    function getResults(search){
+        if(search.length > 2){
+            console.log(search);
             const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/search?username=${search}`,userToken);
-            request.then(response => console.log(response.data)).catch(() => alert(search))
+            request.then(response =>{
+                setResults([...response.data.users]);
+                console.log(results);
+            }).catch(() => alert(search))
+        }else{
+            setResults([]);
         }
     }
 
     return(
         <Container>
             <Input placeholder='Search for people and friends' onChange={e =>{
-                setSearch(e.target.value);
-                getResults();
-            }} value={search}></Input>
+                getResults(e.target.value);
+            }}></Input>
             <BsSearch className='icon' />
-            <Results>
-            
+            <Results border={results.length}>
+                {results.length > 0 ? results.map(r => {
+                    return(
+                        <div key={r.id}>
+                            <img src={r.avatar} />
+                            <p>{r.username}</p>
+                        </div>
+                    ) 
+                }) : ''}
             </Results>
         </Container>
     )
@@ -53,4 +65,25 @@ const Results = styled.div`
     top: 100%;
     right: 0;
     left: 0;
+    background: #E7E7E7;
+    ${props => props.border == 0 ? '' : 'border-radius: 0 0 8px 8px'};
+
+    div{
+        display: flex;
+        align-items: center;
+        padding: 5px 0;
+    }
+
+    img{
+        width: 35px;
+        height: 35px;
+        border-radius: 100%;
+        margin: 0 5px 0 0;
+    }
+
+    p{
+        font-family: 'Lato', sans-serif;
+        color: #515151;
+        font-size: 16px;
+    }
 `;

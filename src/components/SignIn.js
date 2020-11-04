@@ -11,7 +11,7 @@ export default function SignIn({setTask}){
     const [username, setUsername] = useState('');
     const [pictureUrl, setPictureUrl] = useState('');
     const [enable, setEnable] = useState(false);
-    const {user, setUser} = useContext(UserContext);
+    const {user, setUser, setUserToken} = useContext(UserContext);
     const history = useHistory();
 
     function verifyInputs(){
