@@ -16,10 +16,10 @@ import Edit from './Edit';
 
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
-    const {text, linkTitle, linkDescription, link, linkImage, likes } = props.post;
+    const {text, linkTitle, linkDescription, link, linkImage, likes, } = props.post;
     const { user, userToken, setPage } = useContext(UserContext);
 
-    const { editing, editClick, modified, textEdit } = useContext(EditContext);
+    const { editing, editClick, modified, textEdit, postId, setPostId } = useContext(EditContext);
 
     const history = useHistory();
     const [like,setLike] = useState(false);
@@ -28,6 +28,7 @@ export default function Posts(props) {
 
     useEffect(() => {
         setLike(likes.some(like => like.userId === user.user.id));
+        setPostId(props.post.id);
     },[]);
     useEffect(() => {
         let text = "";
@@ -97,15 +98,17 @@ export default function Posts(props) {
                     <h3>{username}</h3></Link>
                     { (user.user.id == id) 
                         ?<div>
-                            <FaEdit onClick={editClick} />
+                            <FaEdit onClick={() => {
+                                editClick();
+                                setPostId(props.post.id);}} />
                             <Delete id={props.post.id} />
                         </div>
                         : null
                     }
                     </header>
-                    { editing && (user.user.id == id)
-                        ? <Edit text={text} id={props.post.id}/>
-                        : modified && (user.user.id == id)
+                    { editing && (user.user.id == id) && (postId == props.post.id)
+                        ? <Edit text={text}/>
+                        : modified && (user.user.id == id) && (postId == props.post.id)
                             ? <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{textEdit}</ReactHashtag></p>
                             : <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p> 
                     }

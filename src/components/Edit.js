@@ -8,7 +8,9 @@ export default function Edit(props) {
     const { textEdit, setTextEdit, setEditing, postEdit, setPostId, disabled, setDisabled} = useContext(EditContext);
     
     useEffect(() => {
-        setTextEdit(text);
+        textEdit == ''
+        ? setTextEdit(text)
+        : setTextEdit(textEdit)
     }, [])
 
     return (
@@ -17,7 +19,6 @@ export default function Edit(props) {
             type='text'
             onChange={e => {
                 setTextEdit(e.target.value);
-                setPostId(id);
             }}
             onKeyUp={(e) => {
                 if(e.keyCode == 27){
