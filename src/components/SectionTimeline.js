@@ -15,7 +15,7 @@ export default function SectionTimeline() {
     
     useEffect(() => {
         let mounted = true;
-        const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=${page}&limit=10`, userToken);
+        const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=${page}&limit=10`, userToken);
         request.then(response => {
             if(mounted){
                 let newPosts = [...posts, ...response.data.posts];
