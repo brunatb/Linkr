@@ -3,9 +3,11 @@ import axios from 'axios';
 import styled from 'styled-components';
 import UserContext from '../contexts/UserContext';
 import { AiOutlineTrademark } from 'react-icons/ai';
+import { useParams } from 'react-router-dom';
 
 
-export default function FollowBtn({id}){
+export default function FollowBtn(){
+    const { id } = useParams();
     const [text, setText] = useState('');
     const{ userToken } = useContext(UserContext);
     const [enable, setEnable] = useState(false);
@@ -20,10 +22,9 @@ export default function FollowBtn({id}){
         if(followers.length === 0){
             setText('Follow');
         }else{
-            let follower = followers.filter(f => f.id === id);
-            follower ? setText('Unfollow') : setText('Follow');
+            let follower = followers.filter(f => f.id == id);
+            follower.length !== 0 ? setText('Unfollow') : setText('Follow');
         }
-        console.log(followers);
     }
 
     function postAction(){
