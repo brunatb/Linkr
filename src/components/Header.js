@@ -5,6 +5,7 @@ import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import Menu from './Menu';
 import UserContext from '../contexts/UserContext';
 import { Link } from 'react-router-dom';
+import UserSearch from './UserSearch';
 
 export default function Header() {
     const [openMenu, setOpenMenu] = useState(false);
@@ -14,6 +15,7 @@ export default function Header() {
     return (
         <Top>
             <Link to='/timeline' onClick={()=>setPage(0)}><p>linkr</p></Link>
+            <UserSearch />
             <Profile>
                 {!openMenu ? <AiOutlineDown className='icon' onClick={() => setOpenMenu(true)} /> : <AiOutlineUp className='icon' onClick={() => setOpenMenu(false)} />}
                 <img src={user.user.avatar} />
