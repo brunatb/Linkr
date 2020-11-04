@@ -12,7 +12,12 @@ export default function SectionTimeline() {
     const { userToken, page, setPage } = useContext(UserContext);
     const [posts, setPosts] = useState ([]);
     const [load, setLoad] = useState (false);
+    const [follows, setFollows] = useState(0);
     
+    useEffect(() => {
+        const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', userToken);
+        request.then(response => setFollows(response.data.users.length));
+    },[]);
     useEffect(() => {
         let mounted = true;
         const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=${page}&limit=10`, userToken);
@@ -33,18 +38,22 @@ export default function SectionTimeline() {
             <Publish setPosts={setPosts} />            
             {(posts.length === 0 && !load) ? 
                 (<Load><img src="./images/loading.gif"></img></Load>) : 
-                ((posts.length === 0 && load) ? 
+                ((posts.length === 0 && load && follows!==0) ? 
                     (<Text>Nenhum post encontrado</Text>) : 
-                    <InfiniteScroll
-                        dataLength={posts.length}
-                        next={() => {
-                            setPage(page + 10);
-                        }}
-                        hasMore={true}>
-                            {(posts.map((post) => <Posts key={post.id} post={post} />))}
-                    </InfiniteScroll>
+                    ((posts.length === 0 && load && follows===0) ? 
+                        (<Text>Você não segue ninguém ainda, procure por perfis na busca</Text>) : 
+                        (<InfiniteScroll
+                            dataLength={posts.length}
+                            next={() => {
+                                setPage(page + 10);
+                            }}
+                            hasMore={true}>
+                                {(posts.map((post) => <Posts key={post.id} post={post} />))}
+                        </InfiniteScroll>
+                        )
+                    )
                 )
-            }                     
+            }                    
         </PostsContainer>
     );
 }
