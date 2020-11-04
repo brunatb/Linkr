@@ -1,21 +1,28 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import styled from 'styled-components';
 import ReactHashtag from 'react-hashtag';
 import axios from 'axios';
 import ReactTooltip from 'react-tooltip';
 
+import { FaEdit } from 'react-icons/fa';
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Link, useHistory } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
+import EditContext from '../contexts/EditContext';
 import Delete from './Delete';
-import Edit from './Edit';
 
 
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage, likes } = props.post;
     const { user, userToken, setPage } = useContext(UserContext);
+
+    //const {} = useContext(EditContext);
+    const [ editing, setEditing ] = useState(false);
+    const [ textEdit, setTextEdit ] = useState(text);
+    const inputTextPost = useRef(textEdit);
+
     const history = useHistory();
     const [like,setLike] = useState(false);
     const [likeMessage, setLikeMessage] = useState("");
@@ -86,29 +93,36 @@ export default function Posts(props) {
                 <p>{numLikes} likes</p>
             </Profile>
             <Body>
-                <header><Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                <header>
+                    <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
                     onClick={()=>setPage(0)}>
                     <h3>{username}</h3></Link>
                     { (user.user.id == id) 
                         ?<div>
-                            <Edit />
+                            <FaEdit 
+                                onClick={() => {
+                                    setEditing(true);
+                                    inputTextPost.current.focus();
+                                }} />
                             <Delete />
                         </div>
                         : null
                     }
-                    
                     </header>
-                <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p>
-                <A href={link} target="_blank">
-                    <div>
-                        <h3>{linkTitle}</h3>
-                        <p>{linkDescription}</p>
-                        <span>{link}</span>
-                    </div>
-                    <div>
-                        <img src={linkImage ? linkImage : './images/linkr-icon.png'} />
-                    </div>
-                </A>
+                    { editing 
+                        ? <input ref={inputTextPost} type='text'/> 
+                        : <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p>
+                    }
+                    <A href={link} target="_blank">
+                        <div>
+                            <h3>{linkTitle}</h3>
+                            <p>{linkDescription}</p>
+                            <span>{link}</span>
+                        </div>
+                        <div>
+                            <img src={linkImage ? linkImage : './images/linkr-icon.png'} />
+                        </div>
+                    </A>
             </Body>
         </Container>
     );
@@ -160,7 +174,7 @@ const Body = styled.div`
         justify-content: space-between;
     }
 
-    h3{
+    & h3 {
         font-family: Lato;
         font-size: 19px;
         padding-bottom: 5px;
