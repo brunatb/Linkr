@@ -54,7 +54,7 @@ export default function FollowBtn({id}){
     return(
         <Button onClick={() => {
             postAction();
-        }} disabled={enable}>{text}</Button>
+        }} disabled={enable} text={text}>{text}</Button>
     )
 }
 
@@ -64,8 +64,8 @@ const Button = styled.button`
     height: 30px;
     font-size: 14px;
     font-weight: bold;
-    color: #FFF;
-    background: #1877F2;
+    color: ${props => props.text === 'Follow' ? '#FFF' : '#1877F2'};
+    background: ${props => props.text === 'Follow' ? '#1877F2' : '#FFF'};
     border-radius: 5px;
     padding: 2px;
     cursor: pointer;
