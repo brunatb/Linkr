@@ -92,7 +92,7 @@ export default function Posts(props) {
                     { (user.user.id == id) 
                         ?<div>
                             <Edit />
-                            <Delete />
+                            <Delete id={props.post.id}/>
                         </div>
                         : null
                     }

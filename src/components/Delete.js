@@ -4,22 +4,38 @@ import axios from 'axios';
 import Modal from 'react-modal';
 
 import { MdDelete } from 'react-icons/md';
+import UserContext from '../contexts/UserContext';
 
-export default function Delete() {
+export default function Delete(props) {
+    const { id } = props;
     const [open, setOpen] = useState(false);
+    const [enable, setEnable] = useState(false);
+    const { userToken } = useContext(UserContext);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     
+    function deletePost(){
+        setEnable(true);
+        const request = axios.delete("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+id,userToken);
+        request.then(() => console.log("ok")).catch(() => console.log("erro"));
+    }
+
     return (
         <>
             <Icon>
                 <MdDelete onClick={handleOpen}/>
             </Icon>
-            <Modal  style={style} isOpen={open}  ariaHideApp={false}>
-                <Text>Tem certeza que deseja excluir essa publicação?</Text>
+            <Modal  style={style} isOpen={open}  ariaHideApp={false}>                
+                {!enable ? 
+                <Text>Tem certeza que deseja excluir essa publicação?</Text> :
+                <Load><img src="./images/loading.gif"></img></Load>}
                 <Buttons>
-                    <button onClick={handleClose} className="no">Não, voltar</button>
-                    <button className="yes">Sim, excluir</button>
+                    <button onClick={handleClose} className="no" disabled={enable}>
+                        Não, voltar
+                    </button>
+                    <button onClick={deletePost} className="yes" disabled={enable}>
+                        Sim, excluir
+                    </button>
                 </Buttons>                
             </Modal>
         </>
@@ -33,6 +49,15 @@ const Text = styled.p`
     color: #fff;
     font-size: 30px;
     margin-bottom: 10px;
+`;
+const Load = styled.div`
+    display:flex;
+    justify-content:center;
+
+    img{
+        width:60px;
+        border-radius:10px;
+    }
 `;
 const Buttons = styled.div`
     display:flex;
