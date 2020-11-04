@@ -38,15 +38,17 @@ export default function FollowBtn({id}){
     }
 
     function successCaseFollow(){
-        alert('Seguiu');
+        setText('Unfollow');
+        setEnable(false);
     }
 
     function successCaseUnfollow(){
-        alert('Deixou de seguir');
+        setText('Follow');
+        setEnable(false);
     }
 
     function errorCase(){
-        alert('Erro');
+        alert('Não foi possível executar a operação!');
     }
 
     return(
