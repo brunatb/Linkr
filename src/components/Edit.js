@@ -12,7 +12,7 @@ export default function Edit(props) {
     }, [])
 
     return (
-        <textarea
+        <TextArea
             autoFocus
             type='text'
             onChange={e => {
@@ -33,3 +33,11 @@ export default function Edit(props) {
     );
 
 }
+
+const TextArea = styled.textarea `
+    width: 100%;
+    background: #EFEFEF;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px 10px;
+`;

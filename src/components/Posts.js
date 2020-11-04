@@ -105,9 +105,10 @@ export default function Posts(props) {
                     </header>
                     { editing && (user.user.id == id)
                         ? <Edit text={text} id={props.post.id}/>
-                        : <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p> 
+                        : modified 
+                            ? <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{textEdit}</ReactHashtag></p>
+                            : <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p> 
                     }
-                    {modified && <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{textEdit}</ReactHashtag></p>}
                     <A href={link} target="_blank">
                         <div>
                             <h3>{linkTitle}</h3>
