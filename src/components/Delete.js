@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import Modal from 'react-modal';
@@ -14,13 +15,15 @@ export default function Delete(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     
+    const location = useLocation();
+    const history = useHistory();
+    
     function deletePost(){
         setEnable(true);
         const request = axios.delete("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+id,userToken);
         request.then(() => { 
             handleClose();
-            //Testar
-            //Location.reload();
+            history.push(location.pathname);
         }).catch(() => {
             alert("Não foi possível excluir o post");
             handleClose();
