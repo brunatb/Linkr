@@ -11,4 +11,4 @@ export default function UserId(){
     return(
         <SectionFiltered linkApi={linkApi} title={""} />
     )
-} 
+}
