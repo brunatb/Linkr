@@ -16,8 +16,11 @@ export default function Delete(props) {
     
     function deletePost(){
         setEnable(true);
-        const request = axios.delete("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+id,userToken);
-        request.then(() => console.log("ok")).catch(() => console.log("erro"));
+        const request = axios.delete("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+id);
+        request.then(() => console.log("ok")).catch(() => {
+            alert("Não foi possível excluir o post");
+            handleClose();
+        });
     }
 
     return (
