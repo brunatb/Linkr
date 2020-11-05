@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ReactHashtag from 'react-hashtag';
 import axios from 'axios';
 import ReactTooltip from 'react-tooltip';
+import getYouTubeID from 'get-youtube-id';
 
 import { FaEdit } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
@@ -79,6 +80,10 @@ export default function Posts(props) {
         });
     }
 
+    function verifyLink(data){
+        return data.includes('youtube');
+    }
+
     return(
         <Container>
             <Profile>
@@ -112,16 +117,23 @@ export default function Posts(props) {
                             ? <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{textEdit}</ReactHashtag></p>
                             : <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p> 
                     }
-                    <A href={link} target="_blank">
-                        <div>
-                            <h3>{linkTitle}</h3>
-                            <p>{linkDescription}</p>
-                            <span>{link}</span>
-                        </div>
-                        <div>
-                            <img src={linkImage ? linkImage : './images/linkr-icon.png'} />
-                        </div>
-                    </A>
+                    {
+                        verifyLink(link) ? 
+                        (<iframe id="ytplayer" type="text/html" src={`http://www.youtube.com/embed/${getYouTubeID(link)}?autoplay=1`} frameBorder="0"/>) 
+                        
+                        :
+                    
+                        <A href={link} target="_blank">
+                            <div>
+                                <h3>{linkTitle}</h3>
+                                <p>{linkDescription}</p>
+                                <span>{link}</span>
+                            </div>
+                            <div>
+                                <img src={linkImage ? linkImage : './images/linkr-icon.png'} />
+                            </div>
+                        </A>
+                    }
             </Body>
         </Container>
     );
@@ -142,6 +154,12 @@ const Container = styled.section`
         font-weight: bold;
         cursor: pointer;
     }
+
+    iframe{
+        width: 100%;
+        height: calc(40vw * 0.65);
+    }
+
     @media (max-width: 800px){
         max-width:100vw;
     }
