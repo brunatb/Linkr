@@ -119,7 +119,7 @@ export default function Posts(props) {
                     }
                     {
                         verifyLink(link) ? 
-                        (<iframe id="ytplayer" type="text/html" src={`http://www.youtube.com/embed/${getYouTubeID(link)}?autoplay=1`} frameBorder="0"/>) 
+                        (<iframe id="ytplayer" type="text/html" src={`http://www.youtube.com/embed/${getYouTubeID(link)}?autoplay=0`} frameBorder="0"/>) 
                         
                         :
                     

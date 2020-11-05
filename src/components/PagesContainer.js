@@ -22,17 +22,17 @@ const StyledContainer = styled.section`
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        img{
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            margin: 0 10px 0 0;
+        }
     }
 
     .user-info{
         display: flex;
-    }
-
-    img{
-        width: 50px;
-        height: 50px;
-        border-radius: 100%;
-        margin: 0 10px 0 0;
     }
 
     h2 {
