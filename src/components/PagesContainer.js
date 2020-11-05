@@ -24,6 +24,17 @@ const StyledContainer = styled.section`
         align-items: center;
     }
 
+    .user-info{
+        display: flex;
+    }
+
+    img{
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        margin: 0 10px 0 0;
+    }
+
     h2 {
         font-size: 40px;
     }

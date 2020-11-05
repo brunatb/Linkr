@@ -10,6 +10,6 @@ export default function MyPosts(){
     const title = 'my posts';
 
     return(
-        <SectionFiltered linkApi={linkApi} title={title} />
+        <SectionFiltered linkApi={linkApi} title={title} avatar={user.user.avatar} />
     )
 }

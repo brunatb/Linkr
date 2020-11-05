@@ -13,7 +13,7 @@ import FollowBtn from './FollowBtn';
 import UserContext from '../contexts/UserContext';
 
 
-export default function SectionFiltered({linkApi, title}){
+export default function SectionFiltered({linkApi, title, avatar}){
     const { userToken, page, setPage, } = useContext(UserContext);
     const [posts, setPosts] = useState([]);
     const [load, setLoad] = useState (false);
@@ -44,8 +44,11 @@ export default function SectionFiltered({linkApi, title}){
             <Header />
             <PagesContainer>
                 <div className='btn-container'>
-                    <h2>{title ? title : (posts.length !== 0 ? `${posts[0].user.username}'s posts` : '')}</h2>
-                    {title ? "" : <FollowBtn />}
+                    <span className='user-info'>
+                        {avatar ? <img src={avatar} /> : ''}
+                        <h2>{title ? title : 'Carregando'}</h2>
+                    </span>
+                    {title ? (title.charAt(0) === '#' ? '' : <FollowBtn />) : ''}
                 </div>
                 <div>
                     <PostsContainer>
