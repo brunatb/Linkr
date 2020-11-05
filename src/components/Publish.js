@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import {GrLocation} from 'react-icons/gr'
 
 import UserContext from '../contexts/UserContext';
 
@@ -13,6 +14,7 @@ export default function Publish({ setPosts }) {
     const [text, setText] = useState('');
     const  { userToken, user } = useContext(UserContext);
     const [enable, setEnable] = useState(false);
+    const [location, setLocation] = useState(false);
 
     function verifyLink(){
         if(!link){
@@ -40,7 +42,7 @@ export default function Publish({ setPosts }) {
     }
 
     return(
-        <Container>
+        <Container location={location}>
             <Link to={'/my-posts'}><img src={user.user.avatar} /></Link>
             <div>
                 <p>O que você tem para favoritar hoje?</p>
@@ -52,7 +54,14 @@ export default function Publish({ setPosts }) {
                 onChange={e => setText(e.target.value)}
                 value={text}
                 disabled={enable} />
-                <div className='container-button'><button onClick={verifyLink} disabled={enable}>{!enable ? "Publicar" : "Publicando..."}</button></div>
+                <div className='container-button'>
+                    {location ? 
+                        <span onClick={()=> setLocation(false)}> <GrLocation className='icon' /> Localização ativada</span> 
+                        : 
+                        <span onClick={()=> setLocation(true)}> <GrLocation className='icon' /> Localização desativada</span>
+                    }
+                    <button onClick={verifyLink} disabled={enable}>{!enable ? "Publicar" : "Publicando..."}</button>
+                </div>
             </div>
         </Container>
     );
@@ -73,16 +82,19 @@ const Container = styled.section`
        height: 60px;
        border-radius: 50%;
     }
+    
     div { 
         width: 100%;
         padding: 0 0 0 10px;
     }    
+    
     p{
         color: #707070;
         font-size: 20px;
         line-height: 24px;
         margin: 15px 0 10px 0;
     }
+    
     input, textarea {
         width: 100%;
         background: #EFEFEF;
@@ -90,17 +102,33 @@ const Container = styled.section`
         margin-bottom: 10px;
         padding: 10px 10px;
     }
+    
     input {
         height: 30px;
     }    
+    
     textarea {
         height: 70px;
     }
+    
     .container-button{
         width: 100%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+
+        & > span{
+            font-size: 13px;
+            color: ${props => props.location ? '#238700' : '#707070'};
+            cursor: pointer;
+        }
+
+        .icon{
+            color: ${props => props.location ? '#238700' : '#707070'};
+        }
     }
+    
     button {
         width: 110px;
         height: 30px;
