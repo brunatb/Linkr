@@ -44,7 +44,7 @@ export default function SectionFiltered({linkApi, title}){
             <Header />
             <PagesContainer>
                 <div className='btn-container'>
-                    <h2>{title ? title : (posts.length !== 0 ? `${posts[0].user.username}'s posts` : 'Carregando...')}</h2>
+                    <h2>{title ? title : (posts.length !== 0 ? `${posts[0].user.username}'s posts` : '')}</h2>
                     {title ? "" : <FollowBtn />}
                 </div>
                 <div>

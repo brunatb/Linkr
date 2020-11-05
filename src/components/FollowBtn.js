@@ -12,10 +12,14 @@ export default function FollowBtn(){
     const{ userToken } = useContext(UserContext);
     const [enable, setEnable] = useState(false);
     useEffect(() =>{
+        let mounted = true;
         const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', userToken);
         request.then(response =>{
-            verifyFollowers(response.data.users);
+            if(mounted)verifyFollowers(response.data.users);
         }).catch(() => alert('erro'))
+
+        return () => mounted = false;
+
     }, [text])
 
     function verifyFollowers(followers){

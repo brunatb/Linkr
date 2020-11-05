@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import {BsSearch} from 'react-icons/bs';
 import axios from 'axios';
-import UserContext from '../contexts/UserContext';
 import { DebounceInput } from 'react-debounce-input';
+import { Link } from 'react-router-dom';
+
+import UserContext from '../contexts/UserContext';
 
 export default function UserSearch(){
     const [results, setResults] = useState([]);
-    const { userToken } = useContext(UserContext);
+    const { user, userToken } = useContext(UserContext);
 
     function getResults(search){
         if(search.length > 2){
@@ -22,7 +24,6 @@ export default function UserSearch(){
         }
     }
 
-
     return(
         <Container border={results.length}>
             <DebounceInput 
@@ -36,11 +37,11 @@ export default function UserSearch(){
             <Results border={results.length}>
                 {results.length > 0 ? results.map(r => {
                     return(
-                        <div key={r.id}>
+                        <Link key={r.id} to={r.id == user.user.id ? '/my-posts' : `/user/${r.id}`}>
                             <img src={r.avatar} />
                             <p>{r.username}</p>
                             {r.isFollowingLoggedUser ? <ul><li>following</li></ul> : ''}
-                        </div>
+                        </Link>
                     ) 
                 }) : ''}
             </Results>
@@ -76,7 +77,7 @@ const Results = styled.div`
     background: #E7E7E7;
     ${props => props.border == 0 ? '' : 'padding: 10px 15px; border-radius: 0 0 8px 8px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);'};
     
-    div{
+    a{
         display: flex;
         align-items: center;
         padding: 5px 0;
