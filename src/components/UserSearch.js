@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {BsSearch} from 'react-icons/bs';
 import axios from 'axios';
 import UserContext from '../contexts/UserContext';
+import { DebounceInput } from 'react-debounce-input';
 
 export default function UserSearch(){
     const [results, setResults] = useState([]);
@@ -22,10 +23,14 @@ export default function UserSearch(){
     }
 
     return(
-        <Container>
-            <Input placeholder='Search for people and friends' onChange={e =>{
-                getResults(e.target.value);
-            }}></Input>
+        <Container border={results.length}>
+            <DebounceInput 
+                minLength={3}
+                debounceTimeout={300}
+                placeholder= 'Search for people and friends'
+                onChange={e =>{
+                    getResults(e.target.value);
+                }} />
             <BsSearch className='icon' />
             <Results border={results.length}>
                 {results.length > 0 ? results.map(r => {
@@ -51,23 +56,23 @@ const Container = styled.div`
         right: 2%;
         color: grey;
     }
-`;
 
-const Input = styled.input`
-    width: 100%;
-    font-size: 16px;
-    padding: 8px;
-    border-radius: 5px;
+    input{
+        width: 100%;
+        font-size: 16px;
+        padding: 8px;
+        border-radius: ${props => props.border == 0 ? '5px' : '5px 5px 0 0'};
+    }
 `;
 
 const Results = styled.div`
     position: absolute;
-    top: 100%;
+    top: 98%;
     right: 0;
     left: 0;
     background: #E7E7E7;
-    ${props => props.border == 0 ? '' : 'border-radius: 0 0 8px 8px'};
-
+    ${props => props.border == 0 ? '' : 'padding: 10px 15px; border-radius: 0 0 8px 8px; box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);'};
+    
     div{
         display: flex;
         align-items: center;
