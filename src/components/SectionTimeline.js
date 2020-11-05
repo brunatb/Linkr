@@ -9,24 +9,24 @@ import Publish from './Publish';
 import UserContext from '../contexts/UserContext';
 
 export default function SectionTimeline() {
-    const { token, page, setPage } = useContext(UserContext);
+    const { userToken, page, setPage } = useContext(UserContext);
     const [posts, setPosts] = useState ([]);
     const [load, setLoad] = useState (false);
     const [follows, setFollows] = useState(0);
     
     useEffect(() => {
-        const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', token);
+        const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', userToken);
         request.then(response => setFollows(response.data.users.length));     
     },[]);
     useEffect(() => getPosts(),[]);
     useEffect(() => {
         const reload = setInterval(() => getPosts() ,15000);
         return () => clearInterval(reload);
-    },[token, page]);
+    },[userToken, page]);
 
     function getPosts(){
         let mounted = true;
-        const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=${page}&limit=10`, token);
+        const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=${page}&limit=10`, userToken);
         request.then(response => {
             if(mounted){
                 let newPosts = [...posts, ...response.data.posts];

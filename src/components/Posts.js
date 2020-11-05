@@ -18,7 +18,7 @@ import Edit from './Edit';
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage, likes, } = props.post;
-    const { user, oken, setPage } = useContext(UserContext);
+    const { user, token, setPage } = useContext(UserContext);
 
     const { editing, editClick, modified, textEdit, postId, setPostId } = useContext(EditContext);
 
@@ -37,21 +37,21 @@ export default function Posts(props) {
             switch (numLikes){
                 case 1: text = "Você";
                         break;
-                case 2: text = "Você e "+likes[0]['user.user.username'];
+                case 2: text = "Você e "+likes[0]['user.username'];
                         break;
-                case 3: text = "Você, "+likes[0]['user.user.username']+" e "+(numLikes - 2)+" pessoa";
+                case 3: text = "Você, "+likes[0]['user.username']+" e "+(numLikes - 2)+" pessoa";
                         break;
-                default: text = "Você, "+likes[0]['user.user.username']+" e "+(numLikes - 2)+" pessoas";
+                default: text = "Você, "+likes[0]['user.username']+" e "+(numLikes - 2)+" pessoas";
             }
         }else{
             switch (numLikes){
                 case 0: text = "0 curtidas";
                         break;
-                case 1: text = likes[0]['user.user.username'];
+                case 1: text = likes[0]['user.username'];
                         break;
-                case 2: text = likes[0]['user.user.username']+" e "+(numLikes - 1)+" pessoa";
+                case 2: text = likes[0]['user.username']+" e "+(numLikes - 1)+" pessoa";
                         break;
-                default: text = likes[0]['user.user.username']+" e "+(numLikes - 1)+" pessoas";
+                default: text = likes[0]['user.username']+" e "+(numLikes - 1)+" pessoas";
             }
         }
         setLikeMessage(text);
