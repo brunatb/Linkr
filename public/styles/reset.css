@@ -69,3 +69,7 @@ input, textarea{
 	outline: none;
 	border:none;
 }
+
+li::marker{
+	margin: 0;
+}

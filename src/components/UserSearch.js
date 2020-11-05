@@ -11,16 +11,17 @@ export default function UserSearch(){
 
     function getResults(search){
         if(search.length > 2){
-            console.log(search);
             const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/search?username=${search}`,userToken);
             request.then(response =>{
-                setResults([...response.data.users]);
-                console.log(results);
-            }).catch(() => alert(search))
+                let following = response.data.users.filter(r => r.isFollowingLoggedUser);
+                let notFollowing = response.data.users.filter(r => !r.isFollowingLoggedUser);
+                setResults([...following, ...notFollowing]);
+            }).catch(() => alert('Erro'))
         }else{
             setResults([]);
         }
     }
+
 
     return(
         <Container border={results.length}>
@@ -38,6 +39,7 @@ export default function UserSearch(){
                         <div key={r.id}>
                             <img src={r.avatar} />
                             <p>{r.username}</p>
+                            {r.isFollowingLoggedUser ? <ul><li>following</li></ul> : ''}
                         </div>
                     ) 
                 }) : ''}
@@ -49,6 +51,7 @@ export default function UserSearch(){
 const Container = styled.div`
     width: 40vw;
     position: relative;
+    font-family: 'Lato', sans-serif;
 
     .icon{
         position: absolute;
@@ -87,8 +90,20 @@ const Results = styled.div`
     }
 
     p{
-        font-family: 'Lato', sans-serif;
         color: #515151;
         font-size: 16px;
     }
+
+    li{
+        margin: 0 0 0 10px;
+        font-size: 14px;
+        color: #C5C5C5;
+    }
+    
+    li::before{
+        content: "•";
+        color: #C5C5C5;
+        margin: 0 2px 0 0;
+    }
+   
 `;
