@@ -9,11 +9,11 @@ import UserContext from '../contexts/UserContext';
 
 export default function UserSearch(){
     const [results, setResults] = useState([]);
-    const { user, userToken } = useContext(UserContext);
+    const { user, token } = useContext(UserContext);
 
     function getResults(search){
         if(search.length > 2){
-            const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/search?username=${search}`,userToken);
+            const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/search?username=${search}`,token);
             request.then(response =>{
                 let following = response.data.users.filter(r => r.isFollowingLoggedUser);
                 let notFollowing = response.data.users.filter(r => !r.isFollowingLoggedUser);

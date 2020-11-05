@@ -9,11 +9,11 @@ import { useParams } from 'react-router-dom';
 export default function FollowBtn(){
     const { id } = useParams();
     const [text, setText] = useState('');
-    const{ userToken } = useContext(UserContext);
+    const{ token } = useContext(UserContext);
     const [enable, setEnable] = useState(false);
     useEffect(() =>{
         let mounted = true;
-        const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', userToken);
+        const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', token);
         request.then(response =>{
             if(mounted)verifyFollowers(response.data.users);
         }).catch(() => alert('erro'))
@@ -34,10 +34,10 @@ export default function FollowBtn(){
     function postAction(){
         setEnable(true);
         if(text === 'Follow'){
-            const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/follow`,{}, userToken);
+            const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/follow`,{}, token);
             request.then(successCaseFollow).catch(errorCase);
         }else{
-            const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/unfollow`,{}, userToken);
+            const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/unfollow`,{}, token);
             request.then(successCaseUnfollow).catch(errorCase);
         }
     }

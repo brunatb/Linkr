@@ -18,7 +18,7 @@ import Edit from './Edit';
 export default function Posts(props) {
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage, likes, } = props.post;
-    const { user, userToken, setPage } = useContext(UserContext);
+    const { user, oken, setPage } = useContext(UserContext);
 
     const { editing, editClick, modified, textEdit, postId, setPostId } = useContext(EditContext);
 
@@ -66,14 +66,14 @@ export default function Posts(props) {
         history.push(`/hashtag/${hashtag}`);
     }
     function likePost(){
-        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+props.post.id+"/like",{},userToken);
+        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+props.post.id+"/like",{},token);
         request.then(() => {
             setLike(true);
             setNumLikes(numLikes+1);
         });
     }
     function dislikePost(){
-        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+props.post.id+"/dislike",{},userToken);
+        const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+props.post.id+"/dislike",{},token);
         request.then(() => {
             setLike(false);
             setNumLikes(numLikes-1);

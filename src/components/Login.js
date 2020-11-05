@@ -1,5 +1,5 @@
 import React,{useState, useContext, useEffect} from 'react';
-import {useHistory} from   'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 
 import Forms from '../components/Forms';
@@ -30,7 +30,7 @@ export default function Login({setTask}){
 
                 let tokenObject = {token: props.data.token, user: props.data};
 
-                setUserToken({headers: {"user-token": props.data.token}});
+                setUserToken(props.data.token);
                 localStorage.setItem("tokenObject", JSON.stringify(tokenObject));
 
                 history.push('/timeline')

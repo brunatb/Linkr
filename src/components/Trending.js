@@ -7,18 +7,18 @@ import UserContext from '../contexts/UserContext';
 import Forms from './Forms';
 
 export default function Trending() {
-    const { userToken, setPage } = useContext(UserContext);
+    const { token, setPage } = useContext(UserContext);
     const [ hashtags, setHashtags ] = useState(null);
     const [search, setSearch] = useState('');
     const history = useHistory();
 
     useEffect(() => {
-        const req = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/hashtags/trending', userToken);
+        const req = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/hashtags/trending', token);
         
         req.then( response => {
             setHashtags(response.data.hashtags);
         });
-    }, [userToken]);
+    }, [token]);
 
     function hashtagPage(){
         let hashtag = search;

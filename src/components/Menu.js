@@ -1,17 +1,23 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import {useHistory} from 'react-router-dom';
 
 import UserContext from '../contexts/UserContext';
 
 export default function Menu(){
     const {setUser, setPage} = useContext(UserContext);
+
+    // function clearLocal() {
+    //     localStorage.clear();
+    // }
+
     return(
         <StyledMenu>
             <ul>
                 <Link to='/my-posts' onClick={() => setPage(0)}><li>My posts</li></Link>
                 <Link to='/my-likes'><li>My likes</li></Link>
-                <Link to='/'><li>Logout</li></Link>
+                <Link to='/' ><li>Logout</li></Link>
             </ul>
         </StyledMenu>
     )

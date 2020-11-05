@@ -13,7 +13,7 @@ import Location from './Location';
 export default function Publish({ setPosts }) {
     const [link, setLink] = useState('');
     const [text, setText] = useState('');
-    const  { userToken, user } = useContext(UserContext);
+    const  { token, user } = useContext(UserContext);
     const [enable, setEnable] = useState(false);
    
 
@@ -22,7 +22,7 @@ export default function Publish({ setPosts }) {
             alert('Preencha o campo de link!');
         }else{
             setEnable(true);
-            const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text}, userToken);
+            const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text}, token);
             request.then(successCase).catch(errorCase);
         }
     }
@@ -34,7 +34,7 @@ export default function Publish({ setPosts }) {
 
     function successCase(){
         setEnable(false);
-        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=0&limit=10",userToken);
+        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=0&limit=10",token);
         request.then(response => {
             setPosts(response.data.posts);
             setLink('');

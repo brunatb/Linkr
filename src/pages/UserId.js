@@ -6,12 +6,12 @@ import UserContext from '../contexts/UserContext';
 
 export default function UserId(){
     const { id } = useParams();
-    const { page, userToken } = useContext(UserContext);
+    const { page, token } = useContext(UserContext);
     const linkApi = `https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/posts?offset=${page}&limit=10`;
     const [userInfo, setUserInfo] = useState({});
     useEffect(() => {
         let mounted = true;
-        const request =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}`, userToken);
+        const request =  axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}`, token);
         request.then(response =>{
             if(mounted)setUserInfo(response.data.user)
         }).catch(()=> alert('Erro'))

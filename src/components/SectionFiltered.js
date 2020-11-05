@@ -14,13 +14,13 @@ import UserContext from '../contexts/UserContext';
 
 
 export default function SectionFiltered({linkApi, title, avatar}){
-    const { userToken, page, setPage, } = useContext(UserContext);
+    const { token, page, setPage, } = useContext(UserContext);
     const [posts, setPosts] = useState([]);
     const [load, setLoad] = useState (false);
 
     useEffect(() => {
         let mounted = true;
-        const request = axios.get(linkApi, userToken);
+        const request = axios.get(linkApi, token);
         request.then(response => {
             if(mounted){
                 let newPosts
@@ -37,7 +37,7 @@ export default function SectionFiltered({linkApi, title, avatar}){
 
         return () => mounted = false;
 
-    }, [userToken, linkApi, page])
+    }, [token, linkApi, page])
 
     return(
         <>

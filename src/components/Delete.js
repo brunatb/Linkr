@@ -11,7 +11,7 @@ export default function Delete(props) {
     const { id } = props;
     const [open, setOpen] = useState(false);
     const [enable, setEnable] = useState(false);
-    const { userToken } = useContext(UserContext);
+    const { token } = useContext(UserContext);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     
@@ -20,7 +20,7 @@ export default function Delete(props) {
     
     function deletePost(){
         setEnable(true);
-        const request = axios.delete("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+id,userToken);
+        const request = axios.delete("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+id,token);
         request.then(() => { 
             handleClose();
             history.push(location.pathname);

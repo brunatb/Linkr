@@ -11,9 +11,10 @@ export function UserProvider(props){
 
     const initialUserState = localStorage.getItem("tokenObject") && JSON.parse(localStorage.getItem("tokenObject")).user;
 
-    const token = {headers: {"user-token": initialTokenState}}
-    const [ userToken, setUserToken ] = useState(token);
+    const [ userToken, setUserToken ] = useState(initialTokenState);
     const [user, setUser] = useState(initialUserState);
+
+    const token = {headers: {"user-token": userToken}}
 
 
 
@@ -22,7 +23,7 @@ export function UserProvider(props){
 
    
     return(
-        <UserContext.Provider value={{user, setUser, userToken, setUserToken, page, setPage}}>
+        <UserContext.Provider value={{user, setUser, userToken, setUserToken, page, setPage, token}}>
             {props.children}
         </UserContext.Provider>
     )
