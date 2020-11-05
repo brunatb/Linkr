@@ -8,13 +8,14 @@ import {GrLocation} from 'react-icons/gr'
 import UserContext from '../contexts/UserContext';
 
 import SectionTimeline from './SectionTimeline';
+import Location from './Location';
 
 export default function Publish({ setPosts }) {
     const [link, setLink] = useState('');
     const [text, setText] = useState('');
     const  { userToken, user } = useContext(UserContext);
     const [enable, setEnable] = useState(false);
-    const [location, setLocation] = useState(false);
+   
 
     function verifyLink(){
         if(!link){
@@ -55,11 +56,7 @@ export default function Publish({ setPosts }) {
                 value={text}
                 disabled={enable} />
                 <div className='container-button'>
-                    {location ? 
-                        <span onClick={()=> setLocation(false)}> <GrLocation className='icon' /> Localização ativada</span> 
-                        : 
-                        <span onClick={()=> setLocation(true)}> <GrLocation className='icon' /> Localização desativada</span>
-                    }
+                    <Location />
                     <button onClick={verifyLink} disabled={enable}>{!enable ? "Publicar" : "Publicando..."}</button>
                 </div>
             </div>
@@ -117,16 +114,6 @@ const Container = styled.section`
         justify-content: space-between;
         align-items: center;
         padding: 0;
-
-        & > span{
-            font-size: 13px;
-            color: ${props => props.location ? '#238700' : '#707070'};
-            cursor: pointer;
-        }
-
-        .icon{
-            color: ${props => props.location ? '#238700' : '#707070'};
-        }
     }
     
     button {
