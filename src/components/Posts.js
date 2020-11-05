@@ -37,21 +37,21 @@ export default function Posts(props) {
             switch (numLikes){
                 case 1: text = "Você";
                         break;
-                case 2: text = "Você e "+likes[0]['user.username'];
+                case 2: text = "Você e "+likes[0]['user.user.username'];
                         break;
-                case 3: text = "Você, "+likes[0]['user.username']+" e "+(numLikes - 2)+" pessoa";
+                case 3: text = "Você, "+likes[0]['user.user.username']+" e "+(numLikes - 2)+" pessoa";
                         break;
-                default: text = "Você, "+likes[0]['user.username']+" e "+(numLikes - 2)+" pessoas";
+                default: text = "Você, "+likes[0]['user.user.username']+" e "+(numLikes - 2)+" pessoas";
             }
         }else{
             switch (numLikes){
                 case 0: text = "0 curtidas";
                         break;
-                case 1: text = likes[0]['user.username'];
+                case 1: text = likes[0]['user.user.username'];
                         break;
-                case 2: text = likes[0]['user.username']+" e "+(numLikes - 1)+" pessoa";
+                case 2: text = likes[0]['user.user.username']+" e "+(numLikes - 1)+" pessoa";
                         break;
-                default: text = likes[0]['user.username']+" e "+(numLikes - 1)+" pessoas";
+                default: text = likes[0]['user.user.username']+" e "+(numLikes - 1)+" pessoas";
             }
         }
         setLikeMessage(text);
