@@ -18,7 +18,7 @@ export default function SectionTimeline() {
         const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', userToken);
         request.then(response => setFollows(response.data.users.length));     
     },[]);
-    useEffect(() => getPosts(),[]);
+    useEffect(() => getPosts(),[page]);
     useEffect(() => {
         const reload = setInterval(() => getPosts() ,15000);
         return () => clearInterval(reload);
