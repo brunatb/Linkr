@@ -12,12 +12,9 @@ export default function Login({setTask}){
     const { user, setUser, setUserToken, userToken } = useContext(UserContext);
     const history = useHistory();
 
-    useEffect(() => {
-        if(userToken){
-            history.push('/timeline');
-        }
-
-    }, []);
+    if(userToken){
+        history.push('/timeline');
+    }
 
     function verifyInputs(){
         if (email === '' || password === '' )

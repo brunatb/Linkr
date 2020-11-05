@@ -6,18 +6,19 @@ import {useHistory} from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 
 export default function Menu(){
-    const {setUser, setPage} = useContext(UserContext);
+    const {setUser, setPage, setUserToken} = useContext(UserContext);
 
-    // function clearLocal() {
-    //     localStorage.clear();
-    // }
+    function clearLocal() {
+        localStorage.clear();
+        setUserToken('');
+    }
 
     return(
         <StyledMenu>
             <ul>
                 <Link to='/my-posts' onClick={() => setPage(0)}><li>My posts</li></Link>
                 <Link to='/my-likes'><li>My likes</li></Link>
-                <Link to='/' ><li>Logout</li></Link>
+                <Link to='/'><li onClick={clearLocal}>Logout</li></Link>
             </ul>
         </StyledMenu>
     )
