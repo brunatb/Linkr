@@ -6,6 +6,11 @@ import SignIn from '../components/SignIn';
 
 export default function Main(){
     const [task, setTask] = useState(true);
+
+    // const localToken = localStorage.getItem('userToken');
+    // if(localToken !== null) {
+
+    // }
     return(
         <Container>
             <section>

@@ -1,4 +1,4 @@
-import React,{useState, useContext} from 'react';
+import React,{useState, useContext, useEffect} from 'react';
 import {useHistory} from   'react-router-dom';
 import axios from 'axios';
 
@@ -9,8 +9,12 @@ export default function Login({setTask}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [enable,setEnable] = useState(false);
-    const {user, setUser, setUserToken} = useContext(UserContext);
+    const { setUser, setUserToken, userToken} = useContext(UserContext);
     const history = useHistory();
+
+    useEffect(() => {
+        if(userToken) history.push('/timeline');
+    }, []);
 
     function verifyInputs(){
         if (email === '' || password === '' )
@@ -27,7 +31,7 @@ export default function Login({setTask}){
                 setEnable(false);
             });
         }
-    } 
+    }  
 
     return(
         <>
