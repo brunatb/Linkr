@@ -9,11 +9,14 @@ export default function Login({setTask}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [enable,setEnable] = useState(false);
-    const { setUser, setUserToken, userToken} = useContext(UserContext);
+    const { user, setUser, setUserToken, userToken } = useContext(UserContext);
     const history = useHistory();
 
     useEffect(() => {
-        if(userToken) history.push('/timeline');
+        if(userToken){
+            history.push('/timeline');
+        }
+
     }, []);
 
     function verifyInputs(){
@@ -24,7 +27,12 @@ export default function Login({setTask}){
             const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_in", {email, password});
             request.then(props => {
                 setUser(props.data);
+
+                let tokenObject = {token: props.data.token, user: props.data};
+
                 setUserToken({headers: {"user-token": props.data.token}});
+                localStorage.setItem("tokenObject", JSON.stringify(tokenObject));
+
                 history.push('/timeline')
             }).catch(() => {
                 alert("Email/Senha incorretos");

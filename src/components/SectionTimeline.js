@@ -16,9 +16,15 @@ export default function SectionTimeline() {
     
     useEffect(() => {
         const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', userToken);
-        request.then(response => setFollows(response.data.users.length));
+        request.then(response => setFollows(response.data.users.length));     
     },[]);
+    useEffect(() => getPosts(),[]);
     useEffect(() => {
+        const reload = setInterval(() => getPosts() ,15000);
+        return () => clearInterval(reload);
+    },[userToken, page]);
+
+    function getPosts(){
         let mounted = true;
         const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=${page}&limit=10`, userToken);
         request.then(response => {
@@ -28,10 +34,8 @@ export default function SectionTimeline() {
                 setLoad (true);
             }
         }).catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
-
         return () => mounted = false;
-
-    },[userToken, page]);
+    }
 
     return(
         <PostsContainer>

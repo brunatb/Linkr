@@ -6,12 +6,20 @@ const UserContext = createContext();
 export default UserContext;
 
 export function UserProvider(props){
-    const [user, setUser] = useState({});
-    const [ userToken, setUserToken ] = useState({});
+
+    const initialTokenState = localStorage.getItem("tokenObject") && JSON.parse(localStorage.getItem("tokenObject")).token;
+
+    const initialUserState = localStorage.getItem("tokenObject") && JSON.parse(localStorage.getItem("tokenObject")).user;
+
+    const token = {headers: {"user-token": initialTokenState}}
+    const [ userToken, setUserToken ] = useState(token);
+    const [user, setUser] = useState(initialUserState);
+
+
+
 
     const [page, setPage] = useState(0);
 
-    localStorage.setItem('tokenSave', userToken);
    
     return(
         <UserContext.Provider value={{user, setUser, userToken, setUserToken, page, setPage}}>

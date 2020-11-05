@@ -33,7 +33,7 @@ export default function Publish({ setPosts }) {
 
     function successCase(){
         setEnable(false);
-        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts?offset=0&limit=10",userToken);
+        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=0&limit=10",userToken);
         request.then(response => {
             setPosts(response.data.posts);
             setLink('');
