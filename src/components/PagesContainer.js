@@ -29,21 +29,17 @@ const StyledContainer = styled.section`
             margin: 0 10px 0 0;
         }
     }
-
     .user-info{
         display: flex;
     }
-
     h2 {
         font-size: 40px;
     }
-
     & > div {
         display: flex;
         justify-content: space-between;
         margin-top: 40px;
     }
-
     @media (max-width: 800px){
         padding: 0;
 

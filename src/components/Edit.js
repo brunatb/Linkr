@@ -1,11 +1,11 @@
-import React, { useContext, useState, useRef, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components';
 import EditContext from '../contexts/EditContext';
 
 export default function Edit(props) {
 
     const { text } = props;
-    const { textEdit, setTextEdit, setEditing, postEdit, disabled, setDisabled, setModified} = useContext(EditContext);
+    const { textEdit, setTextEdit, setEditing, postEdit, disabled, setDisabled } = useContext(EditContext);
     
     useEffect(() => {
         textEdit == ''
@@ -17,9 +17,7 @@ export default function Edit(props) {
         <TextArea
             autoFocus
             type='text'
-            onChange={e => {
-                setTextEdit(e.target.value);
-            }}
+            onChange={e => setTextEdit(e.target.value)}
             onKeyUp={(e) => {
                 if(e.keyCode == 27){
                     setEditing(false);

@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import Posts from './Posts';
+import Post from './Post';
 import PostsContainer from './PostsContainer';
 import Publish from './Publish';
 import UserContext from '../contexts/UserContext';
@@ -54,7 +54,7 @@ export default function SectionTimeline() {
                                 setPage(page + 10);
                             }}
                             hasMore={true}>
-                                {(posts.map((post) => <Posts key={post.id} post={post} />))}
+                                {(posts.map((post) => <Post key={post.id} post={post} />))}
                         </InfiniteScroll>
                         )
                     )

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {GoLocation} from 'react-icons/go';
+import { GoLocation } from 'react-icons/go';
 import styled from 'styled-components';
 
 export default function Location({setGeoLocation}){
