@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { MdLocationOn } from 'react-icons/md';
-import styled from 'styled-components';
+import {AiOutlineClose} from 'react-icons/ai';
+import styled, { withTheme } from 'styled-components';
 import Modal from 'react-modal';
 
 export default function Maps({name, place}){
     const [open, setOpen] = useState(false);
-
+   
     return(
         <Container>
             <MdLocationOn onClick={() => setOpen(true)} />
             <Modal style={style} isOpen={open} ariaHideApp={false}>
-                <h2>{`${name}'s location`}</h2>
+                <Close>
+                    <h2>{`${name}'s location`}</h2>
+                    <AiOutlineClose onClick={() => setOpen(false)} />
+                </Close>
+
             </Modal>
         </Container>
     )
@@ -19,6 +24,21 @@ export default function Maps({name, place}){
 const Container = styled.span`
     svg{
         color: white;
+        cursor: pointer;
+    }
+`;
+
+const Close = styled.div`
+    display: flex;
+    justify-content: space-between;
+    
+    h2{
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    svg{
+        cursor: pointer;
     }
 `;
 
@@ -35,7 +55,7 @@ export const style = {
         height:"30%",
         opacity: "1",
         borderRadius: "30px", 
-        textAlign: "center",
-        padding: "3% 10%"
+        padding: "3% 5%", 
+        color: 'white',
     }
 }
