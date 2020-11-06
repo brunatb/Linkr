@@ -6,12 +6,10 @@ export default function Location({setGeoLocation}){
     const [location, setLocation] = useState(false);
 
     function getLocation(){
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(storePosition);
-        }else{
+        navigator.geolocation.getCurrentPosition(storePosition, () =>{
             alert('Geolocation is not supported by this browser.');
             setLocation(false);
-        }
+        });
     }
 
     function storePosition(position){

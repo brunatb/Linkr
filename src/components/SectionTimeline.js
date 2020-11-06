@@ -23,7 +23,6 @@ export default function SectionTimeline() {
         const reload = setInterval(() => getPosts() ,15000);
         return () => clearInterval(reload);
     }, [token, page]);
-
     function getPosts(){
         let mounted = true;
         const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=${page}&limit=10`, token);

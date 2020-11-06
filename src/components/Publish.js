@@ -15,11 +15,17 @@ export default function Publish({ setPosts }) {
     const [enable, setEnable] = useState(false);
    
     function verifyLink(){
+        let request;
         if(!link){
             alert('Preencha o campo de link!');
         }else{
             setEnable(true);
-            const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text, geolocation: {latitude: geoLocation.coords.latitude, longitude: geoLocation.coords.longitude}}, token);
+            if(geoLocation.coords !== undefined){
+                request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text, geolocation: {latitude: geoLocation.coords.latitude, longitude: geoLocation.coords.longitude}}, token);
+            }else{
+                request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text}, token);
+            }
+            
             request.then(successCase).catch(errorCase);
         }
     }
