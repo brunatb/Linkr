@@ -98,11 +98,10 @@ export const style = {
         top:"30%",
         margin: "0 auto",
         backgroundColor: "#333",
-        width:"50%",
-        height:"30%",
+        width:"500px",
+        maxHeight:"200px",
         opacity: "1",
         borderRadius: "30px", 
-        textAlign: "center",
-        padding: "3% 10%"
+        textAlign: "center"
     }
 }

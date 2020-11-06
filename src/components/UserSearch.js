@@ -67,6 +67,11 @@ const Container = styled.div`
         padding: 8px;
         border-radius: ${props => props.border == 0 ? '5px' : '5px 5px 0 0'};
     }
+    @media (max-width:800px){
+        .icon{
+            display:none;
+        }
+    }
 `;
 
 const Results = styled.div`
