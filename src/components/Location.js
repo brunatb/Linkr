@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {GrLocation} from 'react-icons/gr';
 import styled from 'styled-components';
 
-export default function Location(){
+export default function Location({setGeoLocation}){
     const [location, setLocation] = useState(false);
 
     function getLocation(){
@@ -15,7 +15,7 @@ export default function Location(){
     }
 
     function storePosition(position){
-        console.log(position);
+        setGeoLocation(position);
     }
 
     return(

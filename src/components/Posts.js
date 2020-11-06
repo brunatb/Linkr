@@ -14,7 +14,6 @@ import EditContext from '../contexts/EditContext';
 import Delete from './Delete';
 import Edit from './Edit';
 
-
 export default function Posts(props) {
     const path = window.location.pathname;
     const {avatar, id, username} = props.post.user;
@@ -153,7 +152,7 @@ export default function Posts(props) {
                                 <span>{link}</span>
                             </div>
                             <div>
-                                <img src={linkImage ? linkImage : '/public/images/linkr-icon.png'} />
+                                <img src={linkImage ? linkImage : '/images/linkr-icon.png'} />
                             </div>
                         </A>
                     }

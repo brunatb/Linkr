@@ -13,11 +13,15 @@ export default function Trending() {
     const history = useHistory();
 
     useEffect(() => {
+        let mounted = true;
         const req = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/hashtags/trending', token);
         
         req.then( response => {
-            setHashtags(response.data.hashtags);
+            if(mounted)setHashtags(response.data.hashtags);
         });
+
+        return () => mounted = false;
+    
     }, [token]);
 
     function hashtagPage(){

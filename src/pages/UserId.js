@@ -19,8 +19,8 @@ export default function UserId(){
         return () => mounted = false;
         
     }, [])
-
+    
     return(
-        <SectionFiltered linkApi={linkApi} title={userInfo ? `${userInfo.username}'s posts` : ''} avatar={userInfo ? userInfo.avatar : ''} />
+        <SectionFiltered linkApi={linkApi} title={userInfo.username ? `${userInfo.username}'s posts` : ''} avatar={userInfo ? userInfo.avatar : ''} />
     )
 }
