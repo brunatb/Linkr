@@ -24,7 +24,7 @@ export default function SectionFiltered({linkApi, title, avatar}){
         request.then(response => {
             if(mounted){
                 let newPosts
-                if(response.data.length !== 0){
+                if(response.data.length !== 0 && posts.length !== response.data.posts.length){
                     newPosts = [...posts, ...response.data.posts];
                 }else{
                     newPosts=[...posts];
@@ -48,7 +48,7 @@ export default function SectionFiltered({linkApi, title, avatar}){
                         {avatar ? <img src={avatar} /> : ''}
                         <h2>{title ? title : 'Carregando'}</h2>
                     </span>
-                    {title ? (title.charAt(0) === '#' ? '' : <FollowBtn />) : ''}
+                    {title ? (title.charAt(0) || title === 'my likes' === '#' ? '' : <FollowBtn />) : ''}
                 </div>
                 <div>
                     <PostsContainer>
