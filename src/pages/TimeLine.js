@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 
-
 import Header from '../components/Header';
 import Trending from '../components/Trending';
 import SectionTimeline from '../components/SectionTimeline';

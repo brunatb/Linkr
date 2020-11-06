@@ -1,6 +1,6 @@
+import React,{useState, useContext, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 import axios from 'axios';
-import {useHistory} from   'react-router-dom';
-import React,{useContext, useState} from 'react';
 
 import Forms from '../components/Forms';
 import UserContext from '../contexts/UserContext';
@@ -8,47 +8,47 @@ import UserContext from '../contexts/UserContext';
 export default function SignIn({setTask}){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
-    const [pictureUrl, setPictureUrl] = useState('');
-    const [enable, setEnable] = useState(false);
-    const {user, setUser, setUserToken} = useContext(UserContext);
+    const [loggingIn, setLoggingIn] = useState(false);
+    const { setUser, setUserToken, userToken } = useContext(UserContext);
     const history = useHistory();
 
+    if(userToken){
+        history.push('/timeline');
+    }
+
     function verifyInputs(){
-        if (email === '' || password === '' || username === '' || pictureUrl === ''){
+        if (email === '' || password === '' )
             alert("Preencha todos os campos");
-        }else{
-            setEnable(true);
-            const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_up', {email, password, username, pictureUrl});
-            request.then(props => {
+        else{
+            setLoggingIn(true);
+            const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_in", {email, password});
+            request.then(props => {                
+                let tokenObject = {token: props.data.token, user: props.data};
                 setUser(props.data);
-                setUserToken({headers: {"user-token": props.data.token}});
+                setUserToken(props.data.token);
+                localStorage.setItem("tokenObject", JSON.stringify(tokenObject));
                 history.push('/timeline')
             }).catch(() => {
-                alert("Email já cadastrado!");
-                setEnable(false);
+                alert("Email/Senha incorretos");
+                setLoggingIn(false);
             });
         }
-    }
+    }  
 
     return(
         <>
             <Forms>
-                <input  type="email" name="email" placeholder='e-mail'
+                <input  type="email" name="email" placeholder="e-mail"
                         onChange={e => setEmail(e.target.value)}
-                        value={email} />
-                <input  type="password" name="password" placeholder='password'
+                        value={email}/>
+                <input  type="password" name="senha" placeholder='password' 
                         onChange={e => setPassword(e.target.value)}
-                        value={password} />
-                <input  type="text" name="user" placeholder='username'
-                        onChange={e => setUsername(e.target.value)}
-                        value={username} />
-                <input  type='url' name="picture" placeholder='picture url' 
-                        onChange={e => setPictureUrl(e.target.value)}
-                        value={pictureUrl} />
-                <button onClick={verifyInputs} type='submit' disabled={enable}>Sign Up</button>
+                        value={password}/>
+                <button onClick={verifyInputs} type="submit" disabled={loggingIn}>Log In</button>
             </Forms>
-            <p onClick={() => setTask(true)}>Switch back to log in</p>
+            <p onClick={() => setTask(false)}>First time? Create an account</p>
         </>
     )
 }
+
+

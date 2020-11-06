@@ -11,13 +11,14 @@ export default function Header() {
     const [openMenu, setOpenMenu] = useState(false);
     const { user, setPage } = useContext(UserContext);
 
-
     return (
         <Top>
-            <Link to='/timeline' onClick={()=>setPage(0)}><p>linkr</p></Link>
+            <Link to='/timeline' onClick={() => setPage(0)}><p>linkr</p></Link>
             <UserSearch />
             <Profile>
-                {!openMenu ? <AiOutlineDown className='icon' onClick={() => setOpenMenu(true)} /> : <AiOutlineUp className='icon' onClick={() => setOpenMenu(false)} />}
+                {!openMenu ? 
+                    <AiOutlineDown className='icon' onClick={() => setOpenMenu(true)} /> : 
+                    <AiOutlineUp className='icon' onClick={() => setOpenMenu(false)} />}
                 <img src={user.user.avatar} />
                 {!openMenu ? "" : <Menu />}
             </Profile>
@@ -60,7 +61,6 @@ const Profile = styled.div`
         height: 50px;
         border-radius: 50%;
     }
-
     .icon{
         cursor: pointer;
     }

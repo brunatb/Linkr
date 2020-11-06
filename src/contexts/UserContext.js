@@ -8,20 +8,14 @@ export default UserContext;
 export function UserProvider(props){
 
     const initialTokenState = localStorage.getItem("tokenObject") && JSON.parse(localStorage.getItem("tokenObject")).token;
-
     const initialUserState = localStorage.getItem("tokenObject") && JSON.parse(localStorage.getItem("tokenObject")).user;
 
     const [ userToken, setUserToken ] = useState(initialTokenState);
     const [user, setUser] = useState(initialUserState);
+    const [page, setPage] = useState(0);
 
     const token = {headers: {"user-token": userToken}}
 
-
-
-
-    const [page, setPage] = useState(0);
-
-   
     return(
         <UserContext.Provider value={{user, setUser, userToken, setUserToken, page, setPage, token}}>
             {props.children}

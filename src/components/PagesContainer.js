@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default function PagesContainer(props){
-
     return(
         <StyledContainer>
             {props.children}
@@ -46,10 +45,10 @@ const StyledContainer = styled.section`
     }
 
     @media (max-width: 800px){
-        padding:0;
+        padding: 0;
 
         h2{
-            margin-left:10px;
+            margin-left: 10px;
         }
     }
 `;

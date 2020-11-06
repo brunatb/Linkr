@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default function PostsContainer(props){
-
     return(
         <StyledContainer>
             {props.children}
@@ -15,6 +14,6 @@ const StyledContainer = styled.div`
     height: 100%;
     margin-right: 30px;
     @media (max-width: 800px){
-        margin:0;
+        margin: 0;
     }
 `;
