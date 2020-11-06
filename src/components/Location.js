@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {GrLocation} from 'react-icons/gr';
+import {GoLocation} from 'react-icons/go';
 import styled from 'styled-components';
 
 export default function Location({setGeoLocation}){
@@ -21,12 +21,12 @@ export default function Location({setGeoLocation}){
             {location ? 
                 <span onClick={()=> {
                     setLocation(false)
-                }}> <GrLocation /> Localização ativada</span> 
+                }}> <GoLocation className='icon' /> Localização ativada</span> 
                 : 
                 <span onClick={()=> {
                     setLocation(true)
                     getLocation();
-                }}> <GrLocation /> Localização desativada</span>
+                }}> <GoLocation className='icon' /> Localização desativada</span>
             }
         </Container>
          
@@ -34,13 +34,14 @@ export default function Location({setGeoLocation}){
 }
 
 const Container = styled.div`
+    
     & > span{
         font-size: 13px;
         color: ${props => props.location ? '#238700' : '#707070'};
         cursor: pointer;
     }
 
-    svg{
+    .icon{
         color: ${props => props.location ? '#238700' : '#707070'};
     }
 `;
