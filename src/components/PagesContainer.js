@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default function PagesContainer(props){
-
     return(
         <StyledContainer>
             {props.children}
@@ -30,26 +29,22 @@ const StyledContainer = styled.section`
             margin: 0 10px 0 0;
         }
     }
-
     .user-info{
         display: flex;
     }
-
     h2 {
         font-size: 40px;
     }
-
     & > div {
         display: flex;
         justify-content: space-between;
         margin-top: 40px;
     }
-
     @media (max-width: 800px){
-        padding:0;
+        padding: 0;
 
         h2{
-            margin-left:10px;
+            margin-left: 10px;
         }
     }
 `;

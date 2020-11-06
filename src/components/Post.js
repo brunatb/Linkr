@@ -15,7 +15,7 @@ import Delete from './Delete';
 import Edit from './Edit';
 import Maps from './Maps'
 
-export default function Posts(props) {
+export default function Post(props) {
     const path = window.location.pathname;
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage, likes } = props.post;
@@ -29,7 +29,11 @@ export default function Posts(props) {
     const [numLikes, setNumLikes] = useState(likes.length);
 
     useEffect(() => {
-        setLike(likes.some(like => (path === '/my-likes' ? like.id === user.user.id : like.userId === user.user.id )));
+        setLike(likes.some(like => {
+            path === '/my-likes' ? 
+                like.id === user.user.id : 
+                like.userId === user.user.id
+        }));
         setPostId(props.post.id);
     },[]);
     useEffect(() => {
@@ -39,7 +43,9 @@ export default function Posts(props) {
     useEffect(() => {
         let text = "";
         if (like) {
-            const person = likes ? (path === '/my-likes' ? likes.find(l => l.id !== user.user.id) : likes.find(l => l.userId !== user.user.id)) : '';
+            const person = likes ? (path === '/my-likes' ? 
+                                        likes.find(l => l.id !== user.user.id) : 
+                                        likes.find(l => l.userId !== user.user.id)) : '';
             switch (numLikes){
                 case 0: text = '0 curtidas';
                         break;
@@ -106,11 +112,12 @@ export default function Posts(props) {
     function verifyLink(data){
         return data.includes('youtube');
     }
+
     return(
         <Container>
             <Profile>
-                <Link  to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
-                    onClick={()=>setPage(0)}>
+                <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                        onClick={()=>setPage(0)}>
                     <img src={avatar} />
                 </Link>
                 {like ? 
@@ -124,13 +131,13 @@ export default function Posts(props) {
                 <header>
                     <div className='location-container'>
                         <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
-                            onClick={()=>setPage(0)}>
+                                onClick={()=>setPage(0)}>
                             <h3>{username}</h3>
                         </Link>
                         {place ? <Maps name={username} place={place} /> : ''}
                     </div>
-                    { (user.user.id == id) 
-                        ?<div>
+                    { (user.user.id == id) ?
+                        <div>
                             <FaEdit onClick={() => {
                                 editClick();
                                 setPostId(props.post.id);}} />
@@ -145,12 +152,13 @@ export default function Posts(props) {
                             ? <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{textEdit}</ReactHashtag></p>
                             : <p><ReactHashtag onHashtagClick={hashtag => hashtagPage(hashtag)}>{text}</ReactHashtag></p> 
                     }
-                    {
-                        verifyLink(link) ? 
-                        (<iframe id="ytplayer" type="text/html" src={`http://www.youtube.com/embed/${getYouTubeID(link)}?autoplay=0`} frameBorder="0"/>) 
-                        
-                        :
-                    
+                    {verifyLink(link) ? 
+                        (<iframe 
+                            id="ytplayer" 
+                            type="text/html" 
+                            src={`http://www.youtube.com/embed/${getYouTubeID(link)}?autoplay=0`} 
+                            frameBorder="0"/>) 
+                    :                
                         <A href={link} target="_blank">
                             <div>
                                 <h3>{linkTitle}</h3>
@@ -182,21 +190,17 @@ const Container = styled.section`
         font-weight: bold;
         cursor: pointer;
     }
-
     iframe{
         width: 100%;
         height: calc(40vw * 0.65);
     }
-
     svg{
         cursor: pointer;
     }
-
     .location-container{
         display: flex;
         align-items: center;
     }
-
     @media (max-width: 800px){
         max-width:100vw;
     }
@@ -215,7 +219,7 @@ const Profile = styled.div`
         margin-bottom: 20px;
     }
     .icon{
-        font-size:24px;
+        font-size: 24px;
         cursor: pointer;
         margin: 0 0 5px 0;
     }
@@ -228,21 +232,19 @@ const Body = styled.div`
         display: flex;
         justify-content: space-between;
     }
-
     & h3 {
         font-family: Lato;
         font-size: 19px;
         padding-bottom: 5px;
         color: #CECECE;
     }
-
     p {
         font-size: 17px;
         color: #B7B7B7;
         margin-bottom: 15px;
     }
     @media (max-width: 800px){
-        overflow:hidden;        
+        overflow: hidden;        
         p{
             word-wrap: break-word;
         }    
@@ -271,13 +273,11 @@ const A = styled.a`
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
     & > div > img {
         width: 100%;
         height: 100%;
         border-radius: 0px 10px 10px 0px;
     }
-
     div:first-child {
         width: 70%;
         padding: 15px;
@@ -285,11 +285,9 @@ const A = styled.a`
         flex-direction: column;
         justify-content: space-between;
     }
-
     div:last-child{
         width: 30%;
     }
-
     @media (max-width: 800px){
         max-width: 100%;
         & > div > h3 {
@@ -299,7 +297,7 @@ const A = styled.a`
             word-wrap: break-word;
         }
         span{
-            max-width:30ch;
+            max-width: 30ch;
         }
     }
 `;

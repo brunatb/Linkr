@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import UserContext from '../contexts/UserContext';
-import { AiOutlineTrademark } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 
 

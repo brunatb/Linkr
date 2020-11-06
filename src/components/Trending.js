@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import UserContext from '../contexts/UserContext';
-import Forms from './Forms';
 
 export default function Trending() {
     const { token, setPage } = useContext(UserContext);

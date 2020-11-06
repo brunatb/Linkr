@@ -4,16 +4,14 @@ import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import PostsContainer from '../components/PostsContainer';
-import Posts from '../components/Posts';
+import Post from '../components/Post';
 import Header from '../components/Header';
 import PagesContainer from '../components/PagesContainer';
 import Trending from '../components/Trending';
 import FollowBtn from './FollowBtn';
-
 import UserContext from '../contexts/UserContext';
 
-
-export default function SectionFiltered({linkApi, title, avatar, myLikes}){
+export default function SectionFiltered({linkApi, title, avatar}){
     const { token, page, setPage, } = useContext(UserContext);
     const [posts, setPosts] = useState([]);
     const [load, setLoad] = useState (false);
@@ -29,14 +27,11 @@ export default function SectionFiltered({linkApi, title, avatar, myLikes}){
                 }else{
                     newPosts=[...posts];
                 }
-
                 setPosts(newPosts);
                 setLoad(true);
             } 
         })
-
         return () => mounted = false;
-
     }, [token, linkApi, page])
 
     return(
@@ -61,7 +56,7 @@ export default function SectionFiltered({linkApi, title, avatar, myLikes}){
                                     setPage(page + 10);
                                 }}
                                 hasMore={posts.length < 10 ? false : true}>
-                                    {(posts.map((post) => <Posts key={post.id} post={post} />))}
+                                    {(posts.map((post) => <Post key={post.id} post={post} />))}
                             </InfiniteScroll>
                         }
                     </PostsContainer>
@@ -73,17 +68,17 @@ export default function SectionFiltered({linkApi, title, avatar, myLikes}){
 }
 
 const Load = styled.div`
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 
     img{
-        width:60px;
-        border-radius:10px;
+        width: 60px;
+        border-radius: 10px;
     }
 `;
 
 const Text = styled.p`
-    color:#FFF;
-    text-align:center;
-    font-size:20px;
+    color :#FFF;
+    text-align: center;
+    font-size: 20px;
 `;

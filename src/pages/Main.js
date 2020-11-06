@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Login from '../components/Login';
 import SignIn from '../components/SignIn';
+import SignUp from '../components/SignUp';
 
 export default function Main(){
     const [task, setTask] = useState(true);
@@ -13,7 +13,7 @@ export default function Main(){
                 <h2>save, share and discover<br />the best links on the web</h2>
             </section>
             <StyledSection>
-                {task ? <Login setTask={setTask} /> : <SignIn setTask={setTask} />}
+                {task ? <SignIn setTask={setTask} /> : <SignUp setTask={setTask} />}
             </StyledSection>
         </Container>
     )
@@ -37,15 +37,15 @@ const Container = styled.div`
         padding: 12% 10%;
     }
     @media (max-width: 800px){
-        flex-direction:column;
+        flex-direction: column;
         section{
-            width:100%;
+            width: 100%;
         }
         h1{
-            font-size:76px;
+            font-size: 76px;
         }
         h2{
-            font-size:23px;
+            font-size: 23px;
         }
     }
 `;
@@ -62,7 +62,6 @@ const StyledSection = styled.div`
         text-decoration: underline;
         cursor: pointer;
     }
-
     @media (max-width: 800px){
        width: 100%;
        height: 100%;

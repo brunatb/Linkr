@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import Main from '../pages/Main'
+import Main from '../pages/Main';
 import MyPosts from '../pages/MyPosts';
 import TimeLine from '../pages/TimeLine';
 import Hashtag from '../pages/Hashtag';
@@ -45,7 +45,7 @@ function Container({ location }){
                 </CSSTransition>
             </TransitionGroup>
         </Wrapper>
-    )
+    );
 }
 
 const Wrapper = styled.div`
@@ -58,13 +58,11 @@ const Wrapper = styled.div`
     }
     .fade-exit {
         opacity: 1;
-    }
-      
+    }      
     .fade-exit.fade-exit-active {
         opacity: 0.01;
         transition: opacity 500ms ease-in;
     }
-
     div.transition-group {
         position: relative;
     }
@@ -74,7 +72,6 @@ const Wrapper = styled.div`
         top: 0;
         left: 0;
     }
-
 `;
 
 export default withRouter(Container);

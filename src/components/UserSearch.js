@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import {BsSearch} from 'react-icons/bs';
+import { BsSearch } from 'react-icons/bs';
 import axios from 'axios';
 import { DebounceInput } from 'react-debounce-input';
 import { Link } from 'react-router-dom';

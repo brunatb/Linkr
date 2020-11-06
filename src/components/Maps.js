@@ -14,7 +14,6 @@ export default function Maps({name, place}){
             </Modal>
         </Container>
     )
-
 }
 
 const Container = styled.span`

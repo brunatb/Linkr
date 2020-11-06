@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -61,22 +61,22 @@ const Text = styled.p`
     margin-bottom: 10px;
 `;
 const Load = styled.div`
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 
     img{
-        width:60px;
-        border-radius:10px;
+        width: 60px;
+        border-radius: 10px;
     }
 `;
 const Buttons = styled.div`
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
     .no,.yes{
-        width:30%;
+        width: 30%;
         border-radius: 5px;
         padding: 10px 0;
-        margin:20px;
+        margin: 20px;
         cursor: pointer;
     }
     .no{

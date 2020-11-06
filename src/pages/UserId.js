@@ -16,8 +16,7 @@ export default function UserId(){
             if(mounted)setUserInfo(response.data.user)
         }).catch(()=> alert('Erro'))
 
-        return () => mounted = false;
-        
+        return () => mounted = false;        
     }, [])
     
     return(

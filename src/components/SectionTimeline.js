@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import Posts from './Posts';
+import Post from './Post';
 import PostsContainer from './PostsContainer';
 import Publish from './Publish';
 import UserContext from '../contexts/UserContext';
@@ -18,11 +18,14 @@ export default function SectionTimeline() {
         const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', token);
         request.then(response => setFollows(response.data.users.length));     
     },[]);
+
     useEffect(() => getPosts(),[page]);
+
     useEffect(() => {
         const reload = setInterval(() => getPosts() ,15000);
         return () => clearInterval(reload);
     }, [token, page]);
+
     function getPosts(){
         let mounted = true;
         const request = axios.get(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=${page}&limit=10`, token);
@@ -51,7 +54,7 @@ export default function SectionTimeline() {
                                 setPage(page + 10);
                             }}
                             hasMore={true}>
-                                {(posts.map((post) => <Posts key={post.id} post={post} />))}
+                                {(posts.map((post) => <Post key={post.id} post={post} />))}
                         </InfiniteScroll>
                         )
                     )
@@ -62,17 +65,17 @@ export default function SectionTimeline() {
 }
 
 const Load = styled.div`
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 
     img{
-        width:60px;
-        border-radius:10px;
+        width: 60px;
+        border-radius: 10px;
     }
 `;
 
 const Text = styled.p`
-    color:#FFF;
-    text-align:center;
-    font-size:20px;
+    color: #FFF;
+    text-align: center;
+    font-size: 20px;
 `;

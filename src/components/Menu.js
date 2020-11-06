@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {useHistory} from 'react-router-dom';
 
 import UserContext from '../contexts/UserContext';
 
 export default function Menu(){
-    const {setUser, setPage, setUserToken} = useContext(UserContext);
+    const { setPage, setUserToken} = useContext(UserContext);
 
     function clearLocal() {
         localStorage.clear();
