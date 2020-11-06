@@ -104,7 +104,7 @@ export default function Posts(props) {
     function verifyLink(data){
         return data.includes('youtube');
     }
-console.log(user)
+    
     return(
         <Container>
             <Profile>
