@@ -13,7 +13,7 @@ import FollowBtn from './FollowBtn';
 import UserContext from '../contexts/UserContext';
 
 
-export default function SectionFiltered({linkApi, title, avatar}){
+export default function SectionFiltered({linkApi, title, avatar, myLikes}){
     const { token, page, setPage, } = useContext(UserContext);
     const [posts, setPosts] = useState([]);
     const [load, setLoad] = useState (false);
@@ -32,7 +32,7 @@ export default function SectionFiltered({linkApi, title, avatar}){
 
                 setPosts(newPosts);
                 setLoad(true);
-            }
+            } 
         })
 
         return () => mounted = false;
@@ -48,7 +48,7 @@ export default function SectionFiltered({linkApi, title, avatar}){
                         {avatar ? <img src={avatar} /> : ''}
                         <h2>{title ? title : 'Carregando'}</h2>
                     </span>
-                    {title ? (title.charAt(0) === '#' ? '' : <FollowBtn />) : ''}
+                    {title ? (title.charAt(0) === '#' || myLikes ? '' : <FollowBtn />) : ''}
                 </div>
                 <div>
                     <PostsContainer>

@@ -32,9 +32,10 @@ export default function Publish({ setPosts, getPosts }) {
         }
     }
 
-    function errorCase(){
+    function errorCase(response){
         alert("Houve um erro ao publicar seu link!");
         setEnable(false);
+        console.log(response);
     }
 
 
