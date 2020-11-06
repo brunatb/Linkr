@@ -94,5 +94,7 @@ const Tags = styled.ul`
         margin-top: 15px;
         font-size: 18px;
         color: white;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 `;
