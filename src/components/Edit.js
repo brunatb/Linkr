@@ -4,8 +4,8 @@ import EditContext from '../contexts/EditContext';
 
 export default function Edit(props) {
 
-    const { text, id } = props;
-    const { textEdit, setTextEdit, setEditing, postEdit, setPostId, disabled, setDisabled} = useContext(EditContext);
+    const { text } = props;
+    const { textEdit, setTextEdit, setEditing, postEdit, disabled, setDisabled, setModified} = useContext(EditContext);
     
     useEffect(() => {
         textEdit == ''

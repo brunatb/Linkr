@@ -7,7 +7,7 @@ const EditContext = createContext();
 export default EditContext;
 
 export function EditProvider(props){
-    const { userToken } = useContext(UserContext);
+    const { token } = useContext(UserContext);
 
     const [ editing, setEditing ] = useState(false);
     const [ textEdit, setTextEdit ] = useState('');
@@ -20,7 +20,7 @@ export function EditProvider(props){
     }
 
     function postEdit() {
-        const req = axios.put(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/${postId}`, {text: textEdit}, userToken);
+        const req = axios.put(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/${postId}`, {text: textEdit}, token);
         req.then(() => {
             setModified(true);
             setEditing(false);
