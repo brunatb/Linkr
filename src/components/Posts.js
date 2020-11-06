@@ -13,6 +13,7 @@ import UserContext from '../contexts/UserContext';
 import EditContext from '../contexts/EditContext';
 import Delete from './Delete';
 import Edit from './Edit';
+import Maps from './Maps'
 
 export default function Posts(props) {
     const path = window.location.pathname;
@@ -20,6 +21,7 @@ export default function Posts(props) {
     const {text, linkTitle, linkDescription, link, linkImage, likes } = props.post;
     const { user, token, setPage } = useContext(UserContext);
     const { editing, editClick, modified, textEdit, postId, setPostId } = useContext(EditContext);
+    const place = props.post.geolocation ? props.post.geolocation : '';
 
     const history = useHistory();
     const [like,setLike] = useState(false);
@@ -104,7 +106,6 @@ export default function Posts(props) {
     function verifyLink(data){
         return data.includes('youtube');
     }
-    
     return(
         <Container>
             <Profile>
@@ -121,10 +122,13 @@ export default function Posts(props) {
             </Profile>
             <Body>
                 <header>
-                    <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
-                        onClick={()=>setPage(0)}>
-                        <h3>{username}</h3>
-                    </Link>
+                    <div className='location-container'>
+                        <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                            onClick={()=>setPage(0)}>
+                            <h3>{username}</h3>
+                        </Link>
+                        {place ? <Maps name={username} place={place} /> : ''}
+                    </div>
                     { (user.user.id == id) 
                         ?<div>
                             <FaEdit onClick={() => {
@@ -186,6 +190,11 @@ const Container = styled.section`
 
     svg{
         cursor: pointer;
+    }
+
+    .location-container{
+        display: flex;
+        align-items: center;
     }
 
     @media (max-width: 800px){

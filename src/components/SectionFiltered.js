@@ -48,7 +48,7 @@ export default function SectionFiltered({linkApi, title, avatar, myLikes}){
                         {avatar ? <img src={avatar} /> : ''}
                         <h2>{title ? title : 'Carregando'}</h2>
                     </span>
-                    {title ? (title.charAt(0) === '#' || title === 'my likes' ? '' : <FollowBtn />) : ''}
+                    {title ? (title.charAt(0) === '#' || title === 'my likes' || title === 'my posts' ? '' : <FollowBtn />) : ''}
                 </div>
                 <div>
                     <PostsContainer>
