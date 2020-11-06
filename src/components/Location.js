@@ -2,20 +2,18 @@ import React, {useState} from 'react';
 import {GrLocation} from 'react-icons/gr';
 import styled from 'styled-components';
 
-export default function Location(){
+export default function Location({setGeoLocation}){
     const [location, setLocation] = useState(false);
 
     function getLocation(){
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(storePosition);
-        }else{
+        navigator.geolocation.getCurrentPosition(storePosition, () =>{
             alert('Geolocation is not supported by this browser.');
             setLocation(false);
-        }
+        });
     }
 
     function storePosition(position){
-        console.log(position);
+        setGeoLocation(position);
     }
 
     return(

@@ -1,34 +1,32 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react'
-import { useHistory } from 'react-router';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {GrLocation} from 'react-icons/gr'
 
 import UserContext from '../contexts/UserContext';
 
-import SectionTimeline from './SectionTimeline';
 import Location from './Location';
 
-export default function Publish({ setPosts, getPosts }) {
+export default function Publish({ setPosts }) {
     const [link, setLink] = useState('');
     const [text, setText] = useState('');
+    const [geoLocation, setGeoLocation] = useState({});
     const  { token, user } = useContext(UserContext);
     const [enable, setEnable] = useState(false);
    
-
     function verifyLink(){
+        let request;
         if(!link){
             alert('Preencha o campo de link!');
         }else{
             setEnable(true);
-            const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text}, token);
-            request.then(() => {
-                setEnable(false);
-                getPosts();
-                setLink('');
-                setText('');
-            }).catch(errorCase);
+            if(geoLocation.coords !== undefined){
+                request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text, geolocation: {latitude: geoLocation.coords.latitude, longitude: geoLocation.coords.longitude}}, token);
+            }else{
+                request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts', {link, text}, token);
+            }
+            
+            request.then(successCase).catch(errorCase);
         }
     }
 
@@ -38,6 +36,15 @@ export default function Publish({ setPosts, getPosts }) {
         console.log(response);
     }
 
+    function successCase(){
+        setEnable(false);
+        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/following/posts?offset=0&limit=10", token);
+        request.then(response => {
+            setPosts(response.data.posts);
+            setLink('');
+            setText('');
+        }).catch(() => alert("Houve uma falha ao obter os posts, por favor atualize a página"));
+    }
 
     return(
         <Container location={location}>
@@ -53,7 +60,7 @@ export default function Publish({ setPosts, getPosts }) {
                 value={text}
                 disabled={enable} />
                 <div className='container-button'>
-                    <Location />
+                    <Location setGeoLocation={setGeoLocation} />
                     <button onClick={verifyLink} disabled={enable}>{!enable ? "Publicar" : "Publicando..."}</button>
                 </div>
             </div>

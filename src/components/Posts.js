@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ReactHashtag from 'react-hashtag';
 import axios from 'axios';
@@ -8,14 +8,14 @@ import getYouTubeID from 'get-youtube-id';
 import { FaEdit } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import UserContext from '../contexts/UserContext';
 import EditContext from '../contexts/EditContext';
 import Delete from './Delete';
 import Edit from './Edit';
 
-
 export default function Posts(props) {
+    const path = window.location.pathname;
     const {avatar, id, username} = props.post.user;
     const {text, linkTitle, linkDescription, link, linkImage, likes, } = props.post;
     const { user, token, setPage } = useContext(UserContext);
@@ -28,22 +28,26 @@ export default function Posts(props) {
     const [numLikes, setNumLikes] = useState(likes.length);
 
     useEffect(() => {
-        setLike(likes.some(like => like.userId === user.user.id));
+        setLike(likes.some(like => (path === '/my-likes' ? like.id === user.user.id : like.userId === user.user.id )));
         setPostId(props.post.id);
     },[]);
+
     useEffect(() => {
         let text = "";
         if (like) {
+            const person = likes ? (path === '/my-likes' ? likes.find(l => l.id !== user.user.id) : likes.find(l => l.userId !== user.user.id)) : '';
             switch (numLikes){
+                case 0: text = '0 curtidas';
+                        break;
                 case 1: text = "Você";
                         break;
-                case 2: text = "Você e "+likes[0]['user.username'];
+                case 2: text = `Você e ${path === '/my-likes' ? person.username : person.['user.username']}`;
                         break;
-                case 3: text = "Você, "+likes[0]['user.username']+" e "+(numLikes - 2)+" pessoa";
+                case 3: text = `Você, ${path === '/my-likes' ? person.username : person.['user.username']} e ${numLikes - 2} pessoa`;
                         break;
-                default: text = "Você, "+likes[0]['user.username']+" e "+(numLikes - 2)+" pessoas";
+                default: text = `Você, ${path === '/my-likes' ? person.username : person.['user.username']} e ${numLikes - 2} pessoa`;
             }
-        }else{
+        }else if(!like && path !== '/my-likes'){
             switch (numLikes){
                 case 0: text = "0 curtidas";
                         break;
@@ -53,9 +57,22 @@ export default function Posts(props) {
                         break;
                 default: text = likes[0]['user.username']+" e "+(numLikes - 1)+" pessoas";
             }
+        }else if(path === '/my-likes'){
+            const person = likes.find(l => l.id !== user.user.id);
+
+            switch (numLikes){
+                case 0: text = "0 curtidas";
+                        break;
+                case 1: text = (person ? person.username : '');
+                        break;
+                case 2: text = person.username +" e "+(numLikes - 1)+" pessoa";
+                        break;
+                default: text = person.username +" e "+(numLikes - 1)+" pessoas";
+            }
         }
         setLikeMessage(text);
-    },[numLikes, like]);
+    },[like]);
+
     useEffect(() => {
         ReactTooltip.rebuild();
     },[like])
@@ -65,18 +82,20 @@ export default function Posts(props) {
         hashtag = hashtag.slice(1);
         history.push(`/hashtag/${hashtag}`);
     }
+
     function likePost(){
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+props.post.id+"/like",{},token);
         request.then(() => {
-            setLike(true);
             setNumLikes(numLikes+1);
+            setLike(true);
         });
     }
+
     function dislikePost(){
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/posts/"+props.post.id+"/dislike",{},token);
         request.then(() => {
-            setLike(false);
             setNumLikes(numLikes-1);
+            setLike(false);
         });
     }
 
@@ -87,20 +106,23 @@ export default function Posts(props) {
     return(
         <Container>
             <Profile>
-                <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
-                        onClick={()=>setPage(0)}>
-                        <img src={avatar} /></Link>
+                <Link  to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
+                    onClick={()=>setPage(0)}>
+                    <img src={avatar} />
+                </Link>
                 {like ? 
                     <FcLike data-tip={likeMessage} onClick={dislikePost} className="icon"/> : 
-                    <AiOutlineHeart data-tip={likeMessage} onClick={likePost} className="icon" />}
+                    <AiOutlineHeart data-tip={likeMessage} onClick={likePost} className="icon" />
+                }
                 <ReactTooltip />
-                <p>{numLikes} likes</p>
+                <p>{numLikes > 1 || numLikes === 0 ? `${numLikes} likes` : `${numLikes} like`}</p>
             </Profile>
             <Body>
                 <header>
                     <Link   to={(user.user.id == id) ? '/my-posts' : `/user/${id}`}
-                    onClick={()=>setPage(0)}>
-                    <h3>{username}</h3></Link>
+                        onClick={()=>setPage(0)}>
+                        <h3>{username}</h3>
+                    </Link>
                     { (user.user.id == id) 
                         ?<div>
                             <FaEdit onClick={() => {
@@ -130,7 +152,7 @@ export default function Posts(props) {
                                 <span>{link}</span>
                             </div>
                             <div>
-                                <img src={linkImage ? linkImage : './images/linkr-icon.png'} />
+                                <img src={linkImage ? linkImage : '/images/linkr-icon.png'} />
                             </div>
                         </A>
                     }
@@ -160,6 +182,10 @@ const Container = styled.section`
         height: calc(40vw * 0.65);
     }
 
+    svg{
+        cursor: pointer;
+    }
+
     @media (max-width: 800px){
         max-width:100vw;
     }
@@ -180,6 +206,7 @@ const Profile = styled.div`
     .icon{
         font-size:24px;
         cursor: pointer;
+        margin: 0 0 5px 0;
     }
 `;
 

@@ -24,10 +24,9 @@ export default function Login({setTask}){
             const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/sign_in", {email, password});
             request.then(props => {
                 setUser(props.data);
+                setUserToken(props.data.token);
 
                 let tokenObject = {token: props.data.token, user: props.data};
-
-                setUserToken(props.data.token);
                 localStorage.setItem("tokenObject", JSON.stringify(tokenObject));
 
                 history.push('/timeline')
