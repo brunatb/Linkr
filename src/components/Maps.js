@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { MdLocationOn } from 'react-icons/md';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Modal from 'react-modal';
 
 export default function Maps({name, place}){
     const [open, setOpen] = useState(false);
-
+   
     return(
         <Container>
             <MdLocationOn onClick={() => setOpen(true)} />
@@ -37,6 +37,7 @@ export const style = {
         opacity: "1",
         borderRadius: "30px", 
         textAlign: "center",
-        padding: "3% 10%"
+        padding: "3% 10%", 
+        color: 'white',
     }
 }
