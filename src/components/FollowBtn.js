@@ -1,76 +1,98 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-import UserContext from '../contexts/UserContext';
-import { useParams } from 'react-router-dom';
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-return-assign */
+/* eslint-disable no-use-before-define */
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
 
+export default function FollowBtn() {
+  const { id } = useParams();
+  const [text, setText] = useState("");
+  const { token } = useContext(UserContext);
+  const [enable, setEnable] = useState(false);
+  useEffect(() => {
+    let mounted = true;
+    const request = axios.get(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows",
+      token
+    );
+    request
+      .then((response) => {
+        if (mounted) verifyFollowers(response.data.users);
+      })
+      .catch(() => alert("erro"));
 
-export default function FollowBtn(){
-    const { id } = useParams();
-    const [text, setText] = useState('');
-    const{ token } = useContext(UserContext);
-    const [enable, setEnable] = useState(false);
-    useEffect(() =>{
-        let mounted = true;
-        const request = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/follows', token);
-        request.then(response =>{
-            if(mounted)verifyFollowers(response.data.users);
-        }).catch(() => alert('erro'))
+    return () => (mounted = false);
+  }, [text]);
 
-        return () => mounted = false;
-
-    }, [text])
-
-    function verifyFollowers(followers){
-        if(followers.length === 0){
-            setText('Follow');
-        }else{
-            let follower = followers.filter(f => f.id == id);
-            follower.length !== 0 ? setText('Unfollow') : setText('Follow');
-        }
+  function verifyFollowers(followers) {
+    if (followers.length === 0) {
+      setText("Follow");
+    } else {
+      const follower = followers.filter((f) => f.id == id);
+      follower.length !== 0 ? setText("Unfollow") : setText("Follow");
     }
+  }
 
-    function postAction(){
-        setEnable(true);
-        if(text === 'Follow'){
-            const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/follow`,{}, token);
-            request.then(successCaseFollow).catch(errorCase);
-        }else{
-            const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/unfollow`,{}, token);
-            request.then(successCaseUnfollow).catch(errorCase);
-        }
+  function postAction() {
+    setEnable(true);
+    if (text === "Follow") {
+      const request = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/follow`,
+        {},
+        token
+      );
+      request.then(successCaseFollow).catch(errorCase);
+    } else {
+      const request = axios.post(
+        `https://mock-api.bootcamp.respondeai.com.br/api/v1/linkr/users/${id}/unfollow`,
+        {},
+        token
+      );
+      request.then(successCaseUnfollow).catch(errorCase);
     }
+  }
 
-    function successCaseFollow(){
-        setText('Unfollow');
-        setEnable(false);
-    }
+  function successCaseFollow() {
+    setText("Unfollow");
+    setEnable(false);
+  }
 
-    function successCaseUnfollow(){
-        setText('Follow');
-        setEnable(false);
-    }
+  function successCaseUnfollow() {
+    setText("Follow");
+    setEnable(false);
+  }
 
-    function errorCase(){
-        alert('Não foi possível executar a operação!');
-    }
+  function errorCase() {
+    alert("Não foi possível executar a operação!");
+  }
 
-    return(
-        <Button onClick={() => {
-            postAction();
-        }} disabled={enable} text={text}>{text}</Button>
-    )
+  return (
+    <Button
+      onClick={() => {
+        postAction();
+      }}
+      disabled={enable}
+      text={text}
+    >
+      {text}
+    </Button>
+  );
 }
 
 const Button = styled.button`
-    font-family: 'Lato', sans-serif;
-    width: 80px;
-    height: 30px;
-    font-size: 14px;
-    font-weight: bold;
-    color: ${props => props.text === 'Follow' ? '#FFF' : '#1877F2'};
-    background: ${props => props.text === 'Follow' ? '#1877F2' : '#FFF'};
-    border-radius: 5px;
-    padding: 2px;
-    cursor: pointer;
+  font-family: "Lato", sans-serif;
+  width: 80px;
+  height: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  color: ${(props) => (props.text === "Follow" ? "#FFF" : "#1877F2")};
+  background: ${(props) => (props.text === "Follow" ? "#1877F2" : "#FFF")};
+  border-radius: 5px;
+  padding: 2px;
+  cursor: pointer;
 `;
