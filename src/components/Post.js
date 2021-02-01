@@ -233,7 +233,7 @@ export default function Post(props) {
           <iframe
             id="ytplayer"
             type="text/html"
-            src={`http://www.youtube.com/embed/${getYouTubeID(
+            src={`https://www.youtube.com/embed/${getYouTubeID(
               link
             )}?autoplay=0`}
             frameBorder="0"
