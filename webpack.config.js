@@ -27,7 +27,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin(envKeys)
+    new webpack.DefinePlugin({ process: { env: envKeys } })
   ],
   devServer: {
     contentBase: path.join(__dirname, 'public'),
